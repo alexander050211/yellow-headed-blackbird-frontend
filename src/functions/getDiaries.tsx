@@ -15,7 +15,7 @@ export async function getDiaries() {
         },
       }).then((res) => res.json());
 
-      console.log(resJson);
+      //console.log(resJson);
 
       return resJson;
     } catch (error) {
