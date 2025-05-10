@@ -11,7 +11,6 @@ import Subtask from '../components/subtask.tsx';
 import { getDiariesBetweenTimezones, getTask } from '../functions/getDiaries.tsx';
 import { getUserInfo } from '../functions/getUserInfo';
 
-
 interface Task {
   title: string;
   description: string;
@@ -24,7 +23,7 @@ interface TaskViewerProps {
   setViewerAvailable: (viewerAvailable: boolean) => void;
 }
 
-const TaskViewer = ({ task, setViewerAvailable}: TaskViewerProps) => {
+const TaskViewer = ({ task, setViewerAvailable }: TaskViewerProps) => {
   return (
     <div className="w-[433px] h-[720px] px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
       <div className="self-stretch flex flex-col justify-start items-start gap-[30px]">
@@ -40,7 +39,9 @@ const TaskViewer = ({ task, setViewerAvailable}: TaskViewerProps) => {
               마감 기한
             </div>
             <span className="w-[277px] flex-1 justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
-              {new Date(task.due_time).getFullYear()}.{new Date(task.due_time).getMonth()}.{new Date(task.due_time).getDate()}
+              {new Date(task.due_time).getFullYear()}.
+              {new Date(task.due_time).getMonth()}.
+              {new Date(task.due_time).getDate()}
             </span>
             {/*<input*/}
             {/*  className="w-[277px] flex-1 justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']"*/}
@@ -105,27 +106,45 @@ export const Archive = () => {
     });
   }, []);
   function distance(date: Date) {
-    const startDate = new Date(displayingDate.getFullYear(), displayingDate.getMonth(), 1);
+    const startDate = new Date(
+      displayingDate.getFullYear(),
+      displayingDate.getMonth(),
+      1,
+    );
     const dateDelta = startDate.getDay();
     startDate.setDate(startDate.getDate() - dateDelta);
-    return Math.floor((date.getTime()-startDate.getTime())/1000/60/60/24);
+    return Math.floor(
+      (date.getTime() - startDate.getTime()) / 1000 / 60 / 60 / 24,
+    );
   }
   useEffect(() => {
     console.log(`${displayingDate}`);
-    const startDate = new Date(displayingDate.getFullYear(), displayingDate.getMonth(), 1);
+    const startDate = new Date(
+      displayingDate.getFullYear(),
+      displayingDate.getMonth(),
+      1,
+    );
     const dateDelta = startDate.getDay();
     startDate.setDate(startDate.getDate() - dateDelta);
-    const endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+    const endDate = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate(),
+    );
     endDate.setDate(startDate.getDate() + 42);
     const res = getDiariesBetweenTimezones(startDate, endDate);
     const tmp = Array(42).fill(0);
     const tmp2 = Array(42).fill([]);
+
     res.then(res => {
       res.results.map((it: { created_time: string | number | Date; tasks: unknown[]; }) => {
         const tmpDate = new Date(it.created_time);
-        const tmp_idx = (tmpDate.getTime()-startDate.getTime())/1000/60/60/24;
+        const tmp_idx =
+          (tmpDate.getTime() - startDate.getTime()) / 1000 / 60 / 60 / 24;
         tmp[Math.floor(tmp_idx)] += it.tasks.length;
-        it.tasks.map(i => {tmp2[Math.floor(tmp_idx)].push(i)});
+        it.tasks.map((i) => {
+          tmp2[Math.floor(tmp_idx)].push(i);
+        });
         // console.log(it);
         // tmp2[Math.floor(tmp_idx)] = it.tasks[0];
       });
@@ -138,10 +157,11 @@ export const Archive = () => {
   }, [displayingDate]);
 
   useEffect(() => {
-    if(diaryExists[distance(selectedDate)]) {
+    if (diaryExists[distance(selectedDate)]) {
       // const tmpArr = [];
       setTasks([]);
       // console.log(diaries[distance(selectedDate)].length)
+
       diaries[distance(selectedDate)].map((it: number) => {
         getTask(it).then((v) => {
           console.log(v.description);
@@ -149,9 +169,8 @@ export const Archive = () => {
           tmp.push(v);
 
           setTasks(tmp);
-        }
-        );
-      })
+        });
+      });
       // console.log(tmpArr);
       // setTasks(tmpArr);
       // console.log(tmpArr);
@@ -166,7 +185,7 @@ export const Archive = () => {
     <div className="w-full h-screen flex flex-row">
       <Sidebar />
       {!userInfo.loggedin && (
-        <div className="bg-[#0f0909] w-[1640px] h-[1079px] px-32 py-28 inline-flex flex-col justify-center items-center overflow-hidden">
+        <div className="bg-[#0f0909] px-32 py-28  inline-flex flex-col justify-center items-center overflow-hidden">
           <div className="flex flex-col justify-center items-center gap-14">
             <div className="text-center justify-start text-white text-[32px] font-normal font-['Inter']">
               서비스를 이용하시려면 로그인해주세요
@@ -197,73 +216,60 @@ export const Archive = () => {
         <div className="w-full h-screen flex flex-row bg-[#0F0909]">
           <div className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
             <div className="inline-flex justify-center items-center gap-[100px]">
-              {!viewerAvailable &&
+              {!viewerAvailable && (
                 <Calendar
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-                diplayingDate={displayingDate}
-                setDisplayingDate={setDisplayingDate}
-                diaryExists={diaryExists}
-              />
-              }
-              {viewerAvailable &&
-              <TaskViewer task={currentTask} setViewerAvailable={setViewerAvailable} />
-              }
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  diplayingDate={displayingDate}
+                  setDisplayingDate={setDisplayingDate}
+                  diaryExists={diaryExists}
+                />
+              )}
+              {viewerAvailable && (
+                <TaskViewer
+                  task={currentTask}
+                  setViewerAvailable={setViewerAvailable}
+                />
+              )}
               <div className="inline-flex flex-col justify-start items-start gap-[31px]">
                 <div className="w-[720px] inline-flex justify-start items-center gap-3">
                   <div className="flex justify-start items-center gap-[5px]">
-                    <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                      {selectedDate.getFullYear()}
-                    </div>
-                    <div className="justify-start text-white text-3xl font-medium font-['Inter']">
-                      년
-                    </div>
-                  </div>
-
-                  <div className="flex justify-start items-center gap-[5px]">
-                    <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                      {(selectedDate.getMonth() + 1)
+                    <div className="justify-start text-white text-xl font-bold font-['Inter']">
+                      {`${selectedDate.getFullYear()}년 ${(
+                        selectedDate.getMonth() + 1
+                      )
                         .toString()
-                        .padStart(2, '0')}
-                    </div>
-                    <div className="justify-start text-white text-3xl font-medium font-['Inter']">
-                      월
-                    </div>
-                  </div>
-                  <div className="flex justify-center items-center gap-[5px]">
-                    <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                      {selectedDate.getDate()}
-                    </div>
-                    <div className="justify-start text-white text-3xl font-medium font-['Inter']">
-                      일의 목표
+                        .padStart(
+                          2,
+                          '0',
+                        )}월 ${selectedDate.getDate()}일의 목표`}
                     </div>
                   </div>
                 </div>
                 {/* Task List */}
                 <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-scroll">
-                  {tasks.map((task, index) =>
+                  {tasks.map((task, index) => (
                     // console.log("DDDD"+task.toString());
-                    (
-                      <Subtask
-                        key={index}
-                        dataCheckboxExists={false}
-                        dataBoxChecked="unchecked"
-                        archived={true}
-                        title={task.title}
-                        content={task.description}
-                        dueDate={task.due_time}
-                        onClick1={()=>{setCurrentTask(task); setViewerAvailable(true);}}
-                      />
-                    )
-
-                  )}
+                    <Subtask
+                      key={index}
+                      dataCheckboxExists={false}
+                      dataBoxChecked="unchecked"
+                      archived={true}
+                      title={task.title}
+                      content={task.description}
+                      dueDate={task.due_time}
+                      onClick1={() => {
+                        setCurrentTask(task);
+                        setViewerAvailable(true);
+                      }}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
-      ;
     </div>
   );
 };
