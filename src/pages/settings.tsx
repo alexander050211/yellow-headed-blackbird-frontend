@@ -4,22 +4,61 @@ import GrayPencil from '../assets/icons/ic_pencil_gray.svg';
 import Plant from '../assets/images/img_plant.png';
 import Sidebar from '../components/sidebar';
 import { getUserInfo } from '../functions/getUserInfo';
+import { getTier } from '../functions/getTier';
 
 export const Settings = () => {
+  //
   const [userInfo, setUserInfo] = useState({
     username: '',
     nickname: '',
+    settings: {
+      alarm: 0,
+      alarm_ui: 0,
+    },
+    experience: 0,
     loggedin: false,
   });
 
-  useEffect(() => {
-    getUserInfo().then((data) => {
-      setUserInfo(data);
-    });
-  }, []);
+  const [tierDb, setTierDb] = useState({ 새싹: 10000 } as {
+    [key: string]: number;
+  });
 
   const [alarmInterval, setAlarmInterval] = useState(0);
   const [showSunrise, setShowSunrise] = useState(true);
+
+  // bind alarmInterval and showSunrise to userInfo
+  useEffect(() => {
+    if (userInfo.loggedin) {
+      const settings = {
+        alarm: alarmInterval,
+        alarm_ui: showSunrise ? 1 : 0,
+      };
+      localStorage.setItem('settings', JSON.stringify(settings));
+      setUserInfo((prev) => ({
+        ...prev,
+        settings: {
+          ...prev.settings,
+          alarm: alarmInterval,
+          alarm_ui: showSunrise ? 1 : 0,
+        },
+      }));
+    }
+  }, [alarmInterval, showSunrise]);
+
+  // On component mount
+  useEffect(() => {
+    // Handle user info
+    getUserInfo().then((data) => {
+      setUserInfo(data);
+      setAlarmInterval(data.settings.alarm);
+      setShowSunrise(data.settings.alarm_ui === 1);
+    });
+
+    // Handle tier
+    getTier().then((data) => {
+      setTierDb(data);
+    });
+  }, []);
 
   return (
     <div className="w-full min-h-screen flex flex-row overflow-hidden">
@@ -39,7 +78,13 @@ export const Settings = () => {
               <div className="inline-flex flex-col justify-center items-start gap-10">
                 <div className="inline-flex justify-start items-start gap-5">
                   <div className="justify-start text-white text-2xl font-semibold">
-                    현재 새싹 단계
+                    현재{' '}
+                    {userInfo.experience
+                      ? Object.keys(tierDb).find((key) => {
+                          return (tierDb[key] ?? 0) > userInfo.experience;
+                        })
+                      : '새싹'}{' '}
+                    단계
                   </div>
                   <div className="w-10 h-10 relative bg-[#584d4d] rounded-[32px] overflow-hidden">
                     <div className="w-6 h-6 left-[8px] top-[8.50px] absolute overflow-hidden">
@@ -52,7 +97,17 @@ export const Settings = () => {
                     <div className="w-[] h-5 bg-[#685e5e] rounded-[20px]"></div>
                   </div>
                   <div className="justify-start text-[#c7c7c7] text-2xl font-semibold font-['Inter']">
-                    78%
+                    {(() => {
+                      const nextTierKey =
+                        Object.keys(tierDb).find(
+                          (key) => (tierDb[key] ?? 0) > userInfo.experience,
+                        ) ?? '새싹';
+
+                      const nextTierValue = tierDb[nextTierKey] || 1; // prevent division by 0 or undefined
+
+                      return userInfo.experience / nextTierValue;
+                    })()}{' '}
+                    %
                   </div>
                 </div>
               </div>
