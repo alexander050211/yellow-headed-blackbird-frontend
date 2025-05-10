@@ -6,7 +6,7 @@ import WhiteCalendar from '../assets/icons/ic_calendar_white.svg';
 import GrayStopwatch from '../assets/icons/ic_stopwatch_gray.svg';
 import WhiteStopwatch from '../assets/icons/ic_stopwatch_white.svg';
 
-import { fetchUserInfo } from '../functions/fetchUserInfo';
+import { getUserInfo } from '../functions/getUserInfo';
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -27,7 +27,7 @@ export const Sidebar = () => {
           nickname: nickname,
         });
       } else {
-        fetchUserInfo().then((resJson) => {
+        getUserInfo().then((resJson) => {
           if (resJson) setUserInfo(resJson);
         });
       }
