@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import BrownAdd from '../../assets/icons/ic_add_brown.svg';
 import GrayCheck from '../../assets/icons/ic_check_gray.svg';
@@ -6,7 +6,8 @@ import GrayClose from '../../assets/icons/ic_close_gray.svg';
 import Flag from '../../assets/icons/ic_flag.svg';
 import OurButton from '../../components/button';
 import { Subtask } from '../../components/subtask';
-import '../main padding top.css'
+import '../main padding top.css';
+import { startStep3 } from '../../functions/startStep3';
 
 export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [cardEditorVisible, setCardEditorVisible] = useState(false);
@@ -18,6 +19,13 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
 
   const [diaryDueDate, setDiaryDueDate] = useState('');
 
+  // diaryDueDate를 현재 시각으로 초기화
+  useEffect(() => {
+    const now = new Date();
+    const formattedDate = now.toISOString().slice(0, 16);
+    setDiaryDueDate(formattedDate);
+  }, []);
+
   interface Card {
     title: string;
     description: string;
@@ -27,7 +35,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
 
   const [cards, setCards] = useState<Card[]>([
     {
-      title: '밤샘을 1시작하기',
+      title: '할 일 1',
       description: '밤12431234합니다.',
       dueDate: '03:37',
       completed: false,
@@ -301,6 +309,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
           >
             <OurButton
               onClick={() => {
+                startStep3('밤샘', '설명', diaryDueDate, cards);
                 localStorage.setItem('step', '3');
                 setStep(3);
               }}

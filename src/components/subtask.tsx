@@ -13,7 +13,7 @@ interface SubtaskProps {
   dueDate: string;
   onClick1?: () => void;
   onClick2?: () => void;
-  onClick3?: () => void;
+  onClick3?: (e: any) => void;
 }
 
 export const Subtask: React.FC<SubtaskProps> = ({
