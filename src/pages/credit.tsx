@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getDiaries } from '../functions/getDiaries';
 import { getUserInfo } from '../functions/getUserInfo';
-import { Timeline } from '../components/timeline';
+import { Timeline } from '../components/credTimeline';
+import { TaskItem } from '../components/credComponents';
 
 export default function Credit() {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +13,7 @@ export default function Credit() {
     title: '',
     description: '',
     focus_time: {},
-    task_details: {},
+    task_details: [],
   });
   const [userInfo, setUserInfo] = useState({
     username: '',
@@ -53,8 +54,9 @@ export default function Credit() {
       <section className="space-y-4">
         <h2 className="text-blue-200">오늘밤 이룬 일들</h2>
         <div className="grid grid-cols-1 space-y-4">
-          <div>asdf</div>
-          <div>asdf</div>
+          {diaryData.task_details.map((data: any, key: number) => (
+            <TaskItem key={key} taskData={data} />
+          ))}
         </div>
       </section>
 
