@@ -4,12 +4,12 @@ import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Archive from './pages/archive.tsx';
+import Credit from './pages/credit.tsx';
 import Current from './pages/current/index.tsx';
 import Login from './pages/login.tsx';
 import Logout from './pages/logout.tsx';
 import Register from './pages/register.tsx';
 import Settings from './pages/settings.tsx';
-import Credit from './pages/credit.tsx';
 
 export const App = () => {
   useEffect(() => {
