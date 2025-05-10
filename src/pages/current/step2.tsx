@@ -13,6 +13,42 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [newCardDescription, setNewCardDescription] = useState("");
   const [newCardDueDate, setNewCardDueDate] = useState("");
 
+  const [diaryDueDate, setDiaryDueDate] = useState("");
+
+  interface Card {
+    title: string
+    description: string
+    dueDate: string
+    completed: boolean
+  }
+
+  const [cards, setCards] = useState<Card[]>([
+    {
+      title: "밤샘을 1시작하기",
+      description: "밤12431234합니다.",
+      dueDate: "03:37",
+      completed: false,
+    },
+    {
+      title: "밤샘을 2시작하기",
+      description: "밤22222222222222합니다.",
+      dueDate: "03:37",
+      completed: false,
+    },
+    {
+      title: "밤샘을 3시작하기",
+      description: "밤샘을 시작33333333정해야 합니다.",
+      dueDate: "03:37",
+      completed: false,
+    },
+  ]);
+
+  const handleDeleteCard = (index: number) => {
+    const updatedCards = [...cards];
+    updatedCards.splice(index, 1);
+    setCards(updatedCards);
+  };
+
   return (
     <div className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden">
       <div className="inline-flex justify-start items-end gap-[100px]">
@@ -26,57 +62,42 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
             </div>
             <div className="w-[450px] px-10 py-5 rounded-[20px] flex justify-center items-center gap-2.5">
               <div className="justify-start text-white text-2xl font-semibold font-['Inter']">UNTIL</div>
-              <div className="justify-start text-white text-2xl font-normal font-['Inter'] underline">2025.05.24 03:37</div>
+              <input
+                className="justify-start text-white text-2xl font-normal font-['Inter'] underline"
+                placeholder="날짜를 입력하세요.."
+                type="datetime-local"
+                value={diaryDueDate}
+                onChange={(e) => {
+                  setDiaryDueDate(e.target.value);
+                }}
+              />
             </div>
           </div>
 
           {/* Task List */}
           <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-hidden">
-            <Subtask
-              dataCheckboxExists={false}
-              dataBoxChecked="unchecked"
-              archived={false}
-              title="밤샘을 시작하기"
-              content="밤샘을 시작하기 위해서는 목표를 설정해야 합니다."
-              dueDate="03:37"
-              onClick1={() => {
-                setNewCardVisible(false);
-                localStorage.setItem("step", "3");
-                setStep(3);
-              }}
-              onClick2={(e) => { e.stopPropagation(); }}
-              onClick3={(e) => { e.stopPropagation(); }}
-            />
-            <Subtask
-              dataCheckboxExists={true}
-              dataBoxChecked="unchecked"
-              archived={false}
-              title="밤샘을 시작하기"
-              content="밤샘을 시작하기 위해서는 목표를 설정해야 합니다."
-              dueDate="03:37"
-              onClick1={() => {
-                setNewCardVisible(false);
-                localStorage.setItem("step", "3");
-                setStep(3);
-              }}
-              onClick2={(e) => { e.stopPropagation(); }}
-              onClick3={(e) => { e.stopPropagation(); }}
-            />
-            <Subtask
-              dataCheckboxExists={false}
-              dataBoxChecked="unchecked"
-              archived={true}
-              title="밤샘을 시작하기"
-              content="밤샘을 시작하기 위해서는 목표를 설정해야 합니다."
-              dueDate="03:37"
-              onClick1={() => {
-                setNewCardVisible(false);
-                localStorage.setItem("step", "3");
-                setStep(3);
-              }}
-              onClick2={(e) => { e.stopPropagation(); }}
-              onClick3={(e) => { e.stopPropagation(); }}
-            />
+            {
+              cards.map((card, index) => (
+                <Subtask
+                  key={index}
+                  dataCheckboxExists={false}
+                  dataBoxChecked="unchecked"
+                  archived={false}
+                  title={card.title}
+                  content={card.description}
+                  dueDate={card.dueDate}
+                  onClick1={() => {
+                    setNewCardVisible(false);
+                    localStorage.setItem("step", "3");
+                    setStep(3);
+                  }}
+                  onClick3={(e) => {
+                    e.stopPropagation();
+                    handleDeleteCard(index);
+                  }}
+                />
+              ))
+            }
           </div>
         </div>
         <div className="h-[855px] inline-flex flex-col justify-center items-end gap-8">
@@ -127,16 +148,37 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
               />
 
               {/* Buttons */}
-              <div className="w-full items-end justify-end mt-0 h-16 flex-row inline-flex justify-between items-center gap-5">
+              <div className="w-full items-end justify-end mt-0 h-16 flex-row inline-flex gap-5">
                 <button
-                  onClick={() => { setNewCardVisible(false); }}
+                  onClick={() => {
+                    setNewCardVisible(false);
+                    setNewCardTitle("");
+                    setNewCardDescription("");
+                    setNewCardDueDate("");
+                  }}
                   className="w-16 h-16 relative bg-[#584d4d] rounded-[32px] overflow-hidden"
                 >
                   <div className="w-10 h-10 left-[12px] top-[12px] absolute overflow-hidden">
                     <img src={GrayClose} alt="Close" className="w-10 h-10" />
                   </div>
                 </button>
-                <button  className="w-16 h-16 relative bg-[#584d4d] rounded-[32px] overflow-hidden">
+                <button
+                  onClick={() => {
+                    const updatedCards = [...cards];
+                    updatedCards.push({
+                      title: newCardTitle,
+                      description: newCardDescription,
+                      dueDate: newCardDueDate,
+                      completed: false,
+                    });
+                    setCards(updatedCards);
+                    setNewCardVisible(false);
+                    setNewCardTitle("");
+                    setNewCardDescription("");
+                    setNewCardDueDate("");
+                  }}
+                  className="w-16 h-16 relative bg-[#584d4d] rounded-[32px] overflow-hidden"
+                >
                   <div className="w-8 h-8 left-[16px] top-[16px] absolute overflow-hidden">
                     <img src={GrayCheck} alt="Check" className="w-8 h-8" />
                   </div>

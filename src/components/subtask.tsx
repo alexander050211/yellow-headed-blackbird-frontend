@@ -44,7 +44,7 @@ export const Subtask: React.FC<SubtaskProps> = ({
           </div>
         </div>
         {!archived && (
-          <div className="justify-start text-[#c7c7c7] text-xl font-normal font-['Inter']">{dueDate}</div>
+          <div className="justify-start text-[#c7c7c7] text-xl font-normal font-['Inter']">{dueDate.slice(-5)}</div>
         )}
         {!archived && (
           <button onClick={onClick3} className="w-6 h-6 relative overflow-hidden">
