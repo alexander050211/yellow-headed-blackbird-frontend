@@ -1,7 +1,5 @@
 import './main padding top.css';
 
-import { start } from 'node:repl';
-
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +8,7 @@ import OurButton from '../components/button.tsx';
 import { Calendar } from '../components/calendar.tsx';
 import { Sidebar } from '../components/sidebar.tsx';
 import Subtask from '../components/subtask.tsx';
-import { getDiariesBetweenTimezones, getDiary, getTask } from '../functions/getDiaries.tsx';
+import { getDiariesBetweenTimezones, getTask } from '../functions/getDiaries.tsx';
 import { getUserInfo } from '../functions/getUserInfo';
 
 
@@ -83,7 +81,12 @@ export const Archive = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [displayingDate, setDisplayingDate] = useState(new Date());
   const [viewerAvailable, setViewerAvailable] = useState(false);
-  const [currentTask, setCurrentTask] = useState({title: '',description: '',dueDate: ''});
+  const [currentTask, setCurrentTask] = useState<Task>({
+    title: '',
+    description: '',
+    due_time: '',
+    completed: false,
+  });
   const [diaryExists, setDiaryExists] = useState(new Array(42).fill(0));
   const [diaries, setDiaries] = useState(new Array(42).fill(0));
   const [tasks, setTasks] = useState([] as Task[]);
@@ -118,7 +121,7 @@ export const Archive = () => {
     const tmp = Array(42).fill(0);
     const tmp2 = Array(42).fill([]);
     res.then(res => {
-      res.results.map(it => {
+      res.results.map((it: { created_time: string | number | Date; tasks: unknown[]; }) => {
         const tmpDate = new Date(it.created_time);
         const tmp_idx = (tmpDate.getTime()-startDate.getTime())/1000/60/60/24;
         tmp[Math.floor(tmp_idx)] += it.tasks.length;
@@ -139,7 +142,7 @@ export const Archive = () => {
       // const tmpArr = [];
       setTasks([]);
       // console.log(diaries[distance(selectedDate)].length)
-      diaries[distance(selectedDate)].map(it => {
+      diaries[distance(selectedDate)].map((it: number) => {
         getTask(it).then((v) => {
           console.log(v.description);
           const tmp = [...tasks];

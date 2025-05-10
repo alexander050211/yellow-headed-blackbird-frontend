@@ -105,7 +105,7 @@ function getCalendarDates(month: number, year: number, recordExists: number[]) {
           hasRecord: recordExists[i*7+j]! > 0,
           active: currentDate.getMonth()+1 === month,
           date: tmpDate,
-          setSelectedDate: (selectedDate: Date) => {}
+          setSelectedDate: () => {}
         }
       );
       currentDate.setDate(currentDate.getDate() + 1);
