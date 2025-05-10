@@ -25,7 +25,6 @@ export const Current = () => {
           {step === 1 && <Step1 setStep={setStep} />}
           {step === 2 && <Step2 setStep={setStep} />}
           {step === 3 && <Step3 setStep={setStep} />}
-          {step === 4 && <Credit />}
         </div>
       </div>
     </div>

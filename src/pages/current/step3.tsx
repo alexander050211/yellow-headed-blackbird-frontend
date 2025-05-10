@@ -6,6 +6,7 @@ import PauseButton from '../../assets/buttons/btn_pause.svg';
 import PlayButton from '../../assets/buttons/btn_play.svg';
 import PlusButton from '../../assets/buttons/btn_plus.svg';
 import Subtask from '../../components/subtask';
+import { useNavigate } from 'react-router-dom';
 
 function formatMMSS(totalSeconds: number) {
   const minutes = Math.floor(totalSeconds / 60);
@@ -110,8 +111,10 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
   );
   const [restProgress, setRestProgress] = useState(0);
 
+  const navigate = useNavigate();
+
   const handleTimeUp = () => {
-    setStep(4);
+    navigate('/credit');
   };
 
   const handleRestTimeUp = () => {
@@ -155,7 +158,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
   }, [isPaused, restStart, restEnd, totalRest]);
 
   return (
-    <div className="w-[1640px] h-[1079px] bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden">
+    <div className="bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden">
       <div className="inline-flex justify-start items-center gap-[100px]">
         <div className="inline-flex flex-col justify-start items-center gap-20">
           <div data-time-left="paused" className="w-[472px] h-[472px] relative">
@@ -204,7 +207,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
                   </button>
                   <button
                     onClick={() => {
-                      setStep(4);
+                      handleTimeUp();
                     }}
                     className="w-10 h-10 relative overflow-hidden"
                   >
@@ -238,7 +241,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
                   </button>
                   <button
                     onClick={() => {
-                      setStep(4);
+                      handleTimeUp();
                     }}
                     className="w-10 h-10 relative overflow-hidden"
                   >
