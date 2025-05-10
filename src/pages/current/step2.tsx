@@ -83,7 +83,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
           </div>
 
           {/* Task List */}
-          <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-hidden">
+          <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-scroll">
             {cards.map((card, index) => (
               <Subtask
                 key={index}

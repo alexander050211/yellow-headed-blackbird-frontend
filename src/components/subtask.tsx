@@ -47,11 +47,12 @@ export const Subtask: React.FC<SubtaskProps> = ({
                 />
               </button>
             )}
-            <div className="flex-1 inline-flex flex-col justify-start items-start gap-2.5">
-              <div className="self-stretch text-start text-white text-[28px] font-normal font-['Inter']">
+            <div className="w-[442px] flex-1 inline-flex flex-col justify-start items-start gap-2.5">
+              <div className="w-[442px] h-[34px] text-start text-white text-[28px] font-normal font-['Inter'] truncate">
                 {title}
               </div>
-              <div className="self-stretch text-start text-[#c7c7c7] text-base font-normal font-['Istok_Web']">
+              <div
+                className="w-[442px] h-[23px] text-start text-[#c7c7c7] text-base font-normal font-['Istok_Web'] truncate">
                 {content}
               </div>
             </div>
