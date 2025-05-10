@@ -51,8 +51,7 @@ export const Subtask: React.FC<SubtaskProps> = ({
               <div className="w-[442px] h-[34px] text-start text-white text-[28px] font-normal font-['Inter'] truncate">
                 {title}
               </div>
-              <div
-                className="w-[442px] h-[23px] text-start text-[#c7c7c7] text-base font-normal font-['Istok_Web'] truncate">
+              <div className="w-[442px] h-[23px] text-start text-[#c7c7c7] text-base font-normal font-['Istok_Web'] truncate">
                 {content}
               </div>
             </div>

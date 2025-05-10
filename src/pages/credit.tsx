@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { TaskItem } from '../components/credComponents';
+import { Timeline } from '../components/credTimeline';
 import { getDiaries } from '../functions/getDiaries';
 import { getUserInfo } from '../functions/getUserInfo';
-import { Timeline } from '../components/credTimeline';
-import { TaskItem } from '../components/credComponents';
 
-export default function Credit() {
+export const Credit = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [diaryData, setDiaryData] = useState({
@@ -37,7 +38,9 @@ export default function Credit() {
       setIsLoading(false);
     }
 
-    getUserInfo().then((data) => setUserInfo(data));
+    getUserInfo().then((data) => {
+      setUserInfo(data);
+    });
     getDiaryData();
   }, []);
 
@@ -93,4 +96,6 @@ export default function Credit() {
       )}
     </div>
   );
-}
+};
+
+export default Credit;
