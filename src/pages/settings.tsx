@@ -79,10 +79,10 @@ export const Settings = () => {
                 <div className="inline-flex justify-start items-start gap-5">
                   <div className="justify-start text-white text-2xl font-semibold">
                     현재{' '}
-                    {userInfo.experience
-                      ? Object.keys(tierDb).find((key) => {
-                          return (tierDb[key] ?? 0) > userInfo.experience;
-                        })
+                    {userInfo.experience != null
+                      ? Object.entries(tierDb).find(([key, value]) => {
+                          return (value ?? 0) > userInfo.experience;
+                        })?.[0] || '최고 티어'
                       : '새싹'}{' '}
                     단계
                   </div>
@@ -99,14 +99,14 @@ export const Settings = () => {
                   <div className="justify-start text-[#c7c7c7] text-2xl font-semibold font-['Inter']">
                     {(() => {
                       const nextTierKey =
-                        Object.keys(tierDb).find(
-                          (key) => (tierDb[key] ?? 0) > userInfo.experience,
-                        ) ?? '새싹';
+                        Object.values(tierDb).find(
+                          (values) => (values ?? 0) > userInfo.experience,
+                        ) ?? 10000;
 
                       const nextTierValue = tierDb[nextTierKey] || 1; // prevent division by 0 or undefined
 
                       return userInfo.experience / nextTierValue;
-                    })()}{' '}
+                    })()}
                     %
                   </div>
                 </div>

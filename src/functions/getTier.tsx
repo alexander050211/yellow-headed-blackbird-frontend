@@ -2,26 +2,29 @@
 // Tier은 {"name": "Tier", "until": 100} 형태로 되어있음
 
 export async function getTier() {
-  if (!localStorage.getItem('access')) {
+  try {
+    const url = '/api/tier/';
+    const resJson = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
+      },
+    }).then((res) => res.json());
+
+    //console.log(resJson);
+
+    const formatted: { [key: string]: number } = Object.fromEntries(
+      resJson.map(({ name, cut }: { name: string; cut: number }) => [
+        name,
+        cut,
+      ]),
+    );
+
+    return formatted as {
+      [key: string]: number;
+    };
+  } catch (error) {
     return { 새싹: 10000 };
-  } else {
-    try {
-      const url = '/api/tiers/';
-      const resJson = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access')}`,
-        },
-      }).then((res) => res.json());
-
-      //console.log(resJson);
-
-      return resJson as {
-        [key: string]: number;
-      };
-    } catch (error) {
-      return { 새싹: 10000 };
-    }
   }
 }
