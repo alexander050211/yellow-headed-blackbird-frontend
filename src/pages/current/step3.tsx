@@ -7,6 +7,8 @@ import PlayButton from '../../assets/buttons/btn_play.svg';
 import PlusButton from '../../assets/buttons/btn_plus.svg';
 import Subtask from '../../components/subtask';
 import { useNavigate } from 'react-router-dom';
+import { endDiary } from '../../functions/endDiary';
+import { getDiary } from '../../functions/getDiaries';
 
 function formatMMSS(totalSeconds: number) {
   const minutes = Math.floor(totalSeconds / 60);
@@ -25,62 +27,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
     completed: boolean;
   }
 
-  const [cards, setCards] = useState<Card[]>([
-    {
-      title: '밤샘을 1시작하기',
-      description: '밤12431234합니다.',
-      dueDate: '03:37',
-      completed: true,
-    },
-    {
-      title: '밤샘을 2시작하기',
-      description: '밤22222222222222합니다.',
-      dueDate: '03:37',
-      completed: true,
-    },
-    {
-      title: '밤샘을 3시작하기',
-      description: '밤샘을 시작33333333정해야 합니다.',
-      dueDate: '03:37',
-      completed: false,
-    },
-    {
-      title: '밤샘을 1시작하기',
-      description: '밤12431234합니다.',
-      dueDate: '03:37',
-      completed: true,
-    },
-    {
-      title: '밤샘을 2시작하기',
-      description: '밤22222222222222합니다.',
-      dueDate: '03:37',
-      completed: true,
-    },
-    {
-      title: '밤샘을 3시작하기',
-      description: '밤샘을 시작33333333정해야 합니다.',
-      dueDate: '03:37',
-      completed: false,
-    },
-    {
-      title: '밤샘을 1시작하기',
-      description: '밤12431234합니다.',
-      dueDate: '03:37',
-      completed: true,
-    },
-    {
-      title: '밤샘을 2시작하기',
-      description: '밤22222222222222합니다.',
-      dueDate: '03:37',
-      completed: true,
-    },
-    {
-      title: '밤샘을 3시작하기',
-      description: '밤샘을 시작33333333정해야 합니다.',
-      dueDate: '03:37',
-      completed: false,
-    },
-  ]);
+  const [cards, setCards] = useState<Card[]>([]);
 
   const handleDeleteCard = (index: number) => {
     const updatedCards = [...cards];
@@ -114,12 +61,38 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
   const navigate = useNavigate();
 
   const handleTimeUp = () => {
-    navigate('/credit');
+    async function timeUp() {
+      const id = localStorage.getItem('diaryId');
+      await endDiary(id ? parseInt(id) : 0);
+      localStorage.setItem('step', '1');
+      setStep(1);
+      navigate('/credit');
+    }
+    timeUp();
   };
 
   const handleRestTimeUp = () => {
     setIsPaused(false);
   };
+
+  useEffect(() => {
+    if (cards.length > 0) return;
+    // Card 초기화
+    const diaryId = localStorage.getItem('diaryId');
+    getDiary(diaryId ? parseInt(diaryId) : 0).then((res) => {
+      const cardInit: Card[] = [];
+      for (let i = 0; i < res.task_details.length; i++) {
+        cardInit.push({
+          title: res.task_details[i].title,
+          description: res.task_details[i].description,
+          dueDate: res.task_details[i].due_time,
+          completed: false,
+        });
+      }
+      setCards(cardInit ? cardInit : []);
+      console.log(res.task_details);
+    });
+  }, [cards]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -158,9 +131,9 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
   }, [isPaused, restStart, restEnd, totalRest]);
 
   return (
-    <div className="bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden">
-      <div className="inline-flex justify-start items-center gap-[100px]">
-        <div className="inline-flex flex-col justify-start items-center gap-20">
+    <div className="bg-[#0f0909] p-14 h-screen inline-flex flex-col justify-between items-start overflow-hidden">
+      <div className="inline-flex justify-start items-center gap-10">
+        <div className="inline-flex flex-col justify-start items-center gap-4">
           <div data-time-left="paused" className="w-[472px] h-[472px] relative">
             {/* Circle */}
             <div
@@ -253,51 +226,29 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
           </div>
 
           {/* Caffeine */}
-          <div className="w-[466px] h-20 bg-[#242121] rounded-[20px] inline-flex justify-start items-center overflow-hidden">
-            <div className="flex-1 h-20 px-5 py-2.5 flex justify-center items-center gap-2.5">
-              <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
-                한 모금
-              </div>
-              <div className="w-6 h-6 relative overflow-hidden">
-                <div className="w-[18px] h-5 left-[3px] top-[2px] absolute bg-[#c7c7c7]"></div>
-              </div>
-            </div>
-            <div className="w-px h-[45px] bg-[#685e5e]"></div>
-            <div className="flex-1 h-20 px-5 py-2.5 flex justify-center items-center gap-2.5">
-              <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
-                반샷
-              </div>
-              <div className="w-6 h-6 relative overflow-hidden">
-                <div className="w-[18px] h-5 left-[3px] top-[2px] absolute bg-[#c7c7c7]"></div>
-              </div>
-            </div>
-            <div className="w-px h-[45px] bg-[#685e5e]"></div>
-            <div className="flex-1 h-20 px-5 py-2.5 flex justify-center items-center gap-2.5">
-              <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
-                원샷
-              </div>
-              <div className="w-6 h-6 relative overflow-hidden">
-                <div className="w-[18px] h-5 left-[3px] top-[2px] absolute bg-[#c7c7c7]"></div>
-              </div>
-            </div>
+          <div className="w-[466px] h-14 gap-4 bg-[#242121] rounded-[20px] inline-flex justify-center items-center overflow-hidden">
+            <button className="bg-[#969696] cursor-pointer rounded-full py-2 px-4">
+              아메리카노 1잔
+            </button>
+            <button className="bg-[#969696] cursor-pointer rounded-full py-2 px-4">
+              몬스터 1캔
+            </button>
+            <button className="bg-[#969696] cursor-pointer rounded-full py-2 px-4">
+              레드불 1캔
+            </button>
           </div>
         </div>
 
         {/* Task List */}
         <div className="inline-flex flex-col justify-start items-start gap-[31px]">
           <div className="w-[660px] inline-flex justify-start items-center gap-3">
-            <div className="flex justify-center items-center gap-[5px]">
-              <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                오늘
-              </div>
-              <div className="justify-start text-white text-[32px] font-medium font-['Inter']">
-                의 목표
-              </div>
+            <div className="flex justify-center items-center gap-[5px] text-white">
+              <h1> 오늘의 목표</h1>
             </div>
           </div>
 
           {/* Task List */}
-          <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-scroll">
+          <div className="h-96 p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-scroll">
             {cards.map((card, index) => (
               <Subtask
                 key={index}

@@ -37,20 +37,14 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [cards, setCards] = useState<Card[]>([
     {
       title: '할 일 1',
-      description: '밤12431234합니다.',
-      dueDate: '03:37',
+      description: '샘플 할 일 1',
+      dueDate: '2025-05-11T02:00',
       completed: false,
     },
     {
-      title: '밤샘을 2시작하기',
-      description: '밤22222222222222합니다.',
-      dueDate: '03:37',
-      completed: false,
-    },
-    {
-      title: '밤샘을 3시작하기',
-      description: '밤샘을 시작33333333정해야 합니다.',
-      dueDate: '03:37',
+      title: '할 일 2',
+      description: '샘플 할 일 2',
+      dueDate: '2025-05-11T05:30',
       completed: false,
     },
   ]);
@@ -228,6 +222,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
                       type="datetime-local"
                       value={newCardDueDate}
                       onChange={(e) => {
+                        console.log(e.target.value);
                         setNewCardDueDate(e.target.value);
                       }}
                     />

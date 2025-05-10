@@ -51,9 +51,7 @@ export function TaskItem({ taskData }: ITask) {
 
   return (
     <div className="p-6 border-2 rounded-lg text-left space-y-2">
-      <h2>
-        {taskData.order}. {taskData.title}
-      </h2>
+      <h2>{taskData.title}</h2>
       <div className="flex items-center text-[#969696]">
         <ClockImgGray />
         <div className="mr-3">시작 시간: {ShortTime(taskData.start_time)}</div>
@@ -62,7 +60,8 @@ export function TaskItem({ taskData }: ITask) {
       </div>
       <div className="flex items-center">
         <ClockImgWhite />
-        종료 시간: {ShortTime(taskData.finished_time)}
+        종료 시간:{' '}
+        {ShortTime(taskData.finished_time ? taskData.finished_time : '')}
         <div className="ml-2">
           {offsetSec > 0 ? (
             <span className="text-red-300">({offsetStr})</span>

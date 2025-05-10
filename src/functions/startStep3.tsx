@@ -33,10 +33,12 @@ export async function startStep3(
       }).then((res) => res.json());
 
       const newDiaryId = newDiary.id;
+      localStorage.setItem('diaryId', newDiaryId);
 
       const url2 = '/api/tasks/';
       cards.forEach((card) => {
-        fetch(url1, {
+        console.log(card);
+        fetch(url2, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -48,6 +50,7 @@ export async function startStep3(
             description: card.description,
             order: 0,
             due_time: card.dueDate,
+            finished_time: card.dueDate,
           }),
         }).then((res) => res.json());
       });

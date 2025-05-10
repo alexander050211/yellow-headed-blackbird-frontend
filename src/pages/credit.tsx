@@ -28,7 +28,10 @@ export const Credit = () => {
   });
   const [dateText, setDateText] = useState('');
   const [totalCaff, setTotalCaff] = useState(0);
-  const [natureEvent, setNatureEvent] = useState('');
+  const [natureEvent, setNatureEvent] = useState({
+    name: '',
+    description: '',
+  });
 
   useEffect(() => {
     interface IDiary {
@@ -40,8 +43,7 @@ export const Credit = () => {
           (a: IDiary, b: IDiary): number => b.id - a.id,
         );
         // 가장 최근의 Diary 데이터 요청
-        //const diaryId = diaries[0].id;
-        const diaryId = 4;
+        const diaryId = diaries[0].id;
         const diary = await getDiary(diaryId);
         setDiaryData(diary);
 
@@ -58,12 +60,13 @@ export const Credit = () => {
           `${date.slice(0, 4)}년 ${date.slice(5, 7)}월 ${date.slice(8, 10)}일`,
         );
 
-        console.log(diary.created_time);
+        //console.log(diary.created_time);
         const natureEvent = await getNatureEvents(
           diary.created_time,
           diary.ended_time,
         );
-        console.log(natureEvent);
+        setNatureEvent(natureEvent[2]);
+        //console.log(natureEvent);
 
         //console.log(diary);
       } catch {}
@@ -129,7 +132,10 @@ export const Credit = () => {
       <section className="space-y-16 fade-in">
         <div className="space-y-2">
           <h2>{userInfo.nickname}님, 오늘도 수고했어요.</h2>
-          <div>The darkest hour is just before dawn.</div>
+          <div className="mt-8">
+            밤샘 종료 시점에 활동한 새: {natureEvent?.name}
+          </div>
+          <div className="text-blue-200">{natureEvent?.description}</div>
         </div>
         <Link className="button" to="/">
           메인으로
