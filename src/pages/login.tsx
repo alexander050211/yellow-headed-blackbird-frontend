@@ -101,7 +101,9 @@ export default function Login() {
             />
           </div>
           {errorMsg.length > 0 && <div className="errorMsg">{errorMsg}</div>}
-          <button type="submit">{waiting ? '로그인 중...' : '로그인'}</button>
+          <button type="submit" className="button">
+            {waiting ? '로그인 중...' : '로그인'}
+          </button>
           <div>
             <Link to={'/register'} className="buttonMinor">
               계정이 없나요? 회원가입하기

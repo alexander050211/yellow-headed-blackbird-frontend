@@ -131,7 +131,7 @@ export default function Register() {
             />
           </div>
           {errorMsg.length > 0 && <div className="errorMsg">{errorMsg}</div>}
-          <button type="submit">
+          <button type="submit" className="button">
             {waiting ? '회원가입 중...' : '회원가입'}
           </button>
         </form>
