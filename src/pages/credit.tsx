@@ -25,6 +25,7 @@ export const Credit = () => {
     task_details: [],
     caffeine_details: [],
   });
+  const [dateText, setDateText] = useState('');
   const [totalCaff, setTotalCaff] = useState(0);
 
   useEffect(() => {
@@ -33,12 +34,13 @@ export const Credit = () => {
     }
     async function getDiaryData() {
       try {
-        const diaries = (await getDiaries()).sort(
+        const diaries = (await getDiaries()).results.sort(
           (a: IDiary, b: IDiary): number => b.id - a.id,
         );
         // 가장 최근의 Diary 데이터 요청
         const diaryId = diaries[0].id;
         const diary = await getDiary(diaryId);
+        setDiaryData(diary);
 
         // 데이터 처리
         diary.task_details.sort((a: any, b: any) => a.order - b.order);
@@ -47,7 +49,12 @@ export const Credit = () => {
           sum += diary.caffeine_details[i].amount;
         }
         setTotalCaff(sum);
-        setDiaryData(diary);
+
+        const date = diary.ended_time;
+        setDateText(
+          `${date.slice(0, 4)}년 ${date.slice(5, 7)}월 ${date.slice(8, 10)}일`,
+        );
+
         console.log(diary);
       } catch {}
       setIsLoading(false);
@@ -60,12 +67,15 @@ export const Credit = () => {
   }, []);
 
   const EndingCreditPage = () => (
-    <div className="md:w-1/2 mx-auto space-y-16">
+    <div className="md:w-1/2 mx-auto space-y-24">
       <section className="space-y-4">
         <h1 className="text-blue-200">Ending Credit</h1>
-        <h2>- {diaryData.ended_time}2025년 5월 11일의 밤샘 -</h2>
-        <div>부제: {diaryData.title}</div>
-        <div className="italic">{diaryData.description}</div>
+        <h2>- {dateText}의 밤샘 -</h2>
+      </section>
+
+      <section className="space-y-4">
+        <h2>오늘의 밤샘 목표: {diaryData.title}</h2>
+        <div>{diaryData.description}</div>
       </section>
 
       <section className="space-y-4">
@@ -86,18 +96,29 @@ export const Credit = () => {
           ))}
         </div>
         <div className="text-[#969696] text-sm italic">
-          성인 기준 하루 400mg, 임산부는 하루 300mg, 어린이는 체중 1kg당 2.5mg
-          이하 섭취가 권장됩니다.
+          <div>
+            성인 기준 하루 400mg 이하, 임산부는 하루 300mg 이하, 어린이는 체중
+            1kg당 2.5mg 이하 섭취가 권장됩니다.
+          </div>
+          <div>(식품의약품안전처 권장 기준)</div>
         </div>
       </section>
 
       <section className="space-y-4">
         <h2 className="text-blue-200">타임라인</h2>
-        <Timeline />
+        <Timeline
+          created_time={diaryData.created_time}
+          ended_time={diaryData.ended_time}
+          tasksData={diaryData.task_details}
+          caffsData={diaryData.caffeine_details}
+        />
       </section>
 
-      <section className="space-y-8">
-        <h2>{userInfo.nickname}님, 오늘도 수고했어요.</h2>
+      <section className="space-y-16">
+        <div className="space-y-2">
+          <h2>{userInfo.nickname}님, 오늘도 수고했어요.</h2>
+          <div>The darkest hour is just before dawn.</div>
+        </div>
         <Link className="button" to="/">
           메인으로
         </Link>
@@ -113,7 +134,9 @@ export const Credit = () => {
       {isLoading ? (
         <div>데이터 불러오는 중...</div>
       ) : diaryData.id === 0 || !userInfo.loggedin ? (
-        <div>데이터가 없습니다.</div>
+        <>
+          <div>데이터가 없습니다.</div>
+        </>
       ) : (
         <EndingCreditPage />
       )}

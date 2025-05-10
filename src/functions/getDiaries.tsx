@@ -41,7 +41,7 @@ export async function getDiary(id: number) {
         },
       }).then((res) => res.json());
 
-      console.log(resJson);
+      //console.log(resJson);
 
       return resJson;
     } catch (error) {
