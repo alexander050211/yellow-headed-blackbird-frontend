@@ -115,7 +115,7 @@ export const Archive = () => {
       )}
       {userInfo.loggedin && (
         <div className="w-full h-screen flex flex-row bg-[#0F0909]">
-          <div className="h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
+          <div className="h-full bg-[#0f0909] p-20 inline-flex flex-col justify-between items-start overflow-hidden main">
             <div className="inline-flex justify-start items-center gap-10 py-16">
               <Calendar
                 selectedDate={selectedDate}
@@ -157,7 +157,6 @@ export const Archive = () => {
           </div>
         </div>
       )}
-      ;
     </div>
   );
 };
