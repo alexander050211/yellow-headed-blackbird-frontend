@@ -150,7 +150,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
           <div data-time-left="paused" className="w-[472px] h-[472px] relative">
 
             {/* Circle */}
-            <div className="w-[472px] h-[472px] left-0 top-0 absolute bg-[#242121] rounded-full"></div>
+            <div className={`w-[472px] h-[472px] left-0 top-0 absolute ${!isPaused ? 'bg-[#685e5e]' : 'bg-[#7e809b]'} rounded-full`}></div>
             <div className="w-[392px] h-[392px] left-[40px] top-[40px] absolute bg-[#0f0909] rounded-full"></div>
 
             {/* Inner Circle */}
