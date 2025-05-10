@@ -1,4 +1,5 @@
 import { Sidebar } from '../components/sidebar.tsx';
+import { refreshToken } from '../functions/refreshToken.tsx';
 
 export const Archive = () => {
   return (

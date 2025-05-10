@@ -7,37 +7,72 @@ import { Sidebar } from '../components/sidebar.tsx';
 
 export default function Register() {
   const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
+  const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [waiting, setWaiting] = useState(false);
+
   const navigate = useNavigate();
 
-  function handleRegister() {
-    function isValid(email: string, password: string) {
+  async function fetchRegister() {
+    try {
+      const url = '/api/auth/register/';
+      const resJson = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: email,
+          password: password,
+          nickname: nickname,
+        }),
+      }).then((res) => res.json());
+      return resJson;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async function handleRegister() {
+    function isValid() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const isValidEmail = emailRegex.test(email);
-      const isValidUsername = username.length >= 2;
+      const isValidUsername = nickname.length >= 2;
       const isValidPassword = password.length >= 8;
       const check = password === passwordCheck;
       return isValidEmail && isValidPassword && isValidUsername && check;
     }
 
-    if (!isValid(email, password)) {
+    if (!isValid()) {
       setErrorMsg(
         '잘못된 입력입니다. 닉네임은 2자 이상, 비밀번호는 8자 이상이어야 하며 비밀번호 확인과 일치해야 합니다.',
       );
       return;
     } else {
-      // Register logic (백엔드 준비되면 구현...)
-      navigate('/login');
+      // Register logic
+      setWaiting(true);
+      const resJson = await fetchRegister();
+
+      if (resJson.username != null) {
+        // 회원가입 성공 시시
+        setErrorMsg('');
+        navigate('/login');
+      } else {
+        setErrorMsg(
+          '회원가입에 실패했습니다. (' + resJson.non_field_errors + ')',
+        );
+      }
+      setWaiting(false);
+      fetchRegister();
     }
   }
 
   return (
     <div className="w-full h-screen flex flex-row">
       <Sidebar />
-      <body className="px-8 py-12 text-center">
+      <div className="px-8 py-12 text-center">
         <h1>회원가입</h1>
         <section className="w-96 text-center px-4 py-8 space-y-4">
           <div className="flex justify-end items-center space-x-2">
@@ -60,7 +95,7 @@ export default function Register() {
               id="username"
               placeholder="홍길동"
               onChange={(e) => {
-                setUsername(e.currentTarget.value);
+                setNickname(e.currentTarget.value);
               }}
             />
           </div>
@@ -91,10 +126,10 @@ export default function Register() {
           </div>
           {errorMsg.length > 0 && <div className="errorMsg">{errorMsg}</div>}
           <button type="submit" onClick={handleRegister}>
-            회원가입
+            {waiting ? '회원가입 중...' : '회원가입'}
           </button>
         </section>
-      </body>
+      </div>
     </div>
   );
 }
