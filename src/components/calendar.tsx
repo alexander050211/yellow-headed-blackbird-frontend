@@ -8,6 +8,7 @@ interface CalendarProps {
   setSelectedDate: (selectedDate: Date) => void;
   diplayingDate: Date;
   setDisplayingDate: (displayingDate: Date) => void;
+  diaryExists: number[];
 }
 
 interface CalendarTileProps {
@@ -86,7 +87,7 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
   );
 };
 
-function getCalendarDates(month: number, year: number) {
+function getCalendarDates(month: number, year: number, recordExists: number[]) {
   const dates: CalendarTileProps[][] = [];
   const dateDelta = new Date(year, month - 1, 1).getDay();
   const currentDate = new Date(year, month - 1, 1);
@@ -96,13 +97,15 @@ function getCalendarDates(month: number, year: number) {
     for (let j = 0; j < 7; j++) {
       const tmpDate = new Date(year, month - 1, 1);
       tmpDate.setDate(currentDate.getDate());
-      row.push({
-        selectedDate: new Date(),
-        hasRecord: false,
-        active: currentDate.getMonth() + 1 === month,
-        date: tmpDate,
-        setSelectedDate: (selectedDate: Date) => {},
-      });
+      row.push(
+        {
+          selectedDate: new Date(),
+          hasRecord: recordExists[i*7+j]! > 0,
+          active: currentDate.getMonth()+1 === month,
+          date: tmpDate,
+          setSelectedDate: (selectedDate: Date) => {}
+        }
+      );
       currentDate.setDate(currentDate.getDate() + 1);
     }
     dates.push(row);
@@ -124,10 +127,7 @@ const GetDayHeader = ({ day, color }: { day: string; color: string }) => (
 );
 
 export const Calendar = ({
-  selectedDate,
-  setSelectedDate,
-  diplayingDate: displayingDate,
-  setDisplayingDate,
+  selectedDate, setSelectedDate, diplayingDate: displayingDate, setDisplayingDate, diaryExists
 }: CalendarProps) => {
   return (
     <div className="px-5 py-7 bg-stone-800 rounded-[30px] outline outline-1 outline-stone-600 inline-flex flex-col justify-center items-center gap-6 h-fit">
@@ -199,6 +199,7 @@ export const Calendar = ({
           {getCalendarDates(
             displayingDate.getMonth() + 1,
             displayingDate.getFullYear(),
+            diaryExists
           ).map((row, idx) => {
             return (
               <tr key={idx}>
