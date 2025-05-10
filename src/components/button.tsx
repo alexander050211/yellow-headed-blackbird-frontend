@@ -8,7 +8,7 @@ interface OurButtonProps {
     src: string;
     alt?: string;
   };
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
 }
 
@@ -22,7 +22,7 @@ export const OurButton: React.FC<OurButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`px-10 py-2.5 ${dataProperty1 === 'btn-filled' ? 'bg-[#685e5e]' : 'outline outline-1 outline-offset-[-1px] outline-[#c7c7c7]'}
+      className={`px-10 py-2.5 ${dataProperty1 === 'btn-filled' ? 'bg-[#685e5e]' : 'outline-1 outline-offset-[-1px] outline-[#c7c7c7]'}
       rounded-[40px] inline-flex justify-center items-center gap-2.5 overflow-hidden`}
     >
       <div

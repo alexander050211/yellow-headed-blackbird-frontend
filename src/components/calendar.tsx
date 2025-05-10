@@ -1,7 +1,9 @@
-import React from 'react';
-import WhiteArrowForward from '../assets/icons/ic_arrow_forward_white.svg';
-import WhiteArrowBack from '../assets/icons/ic_arrow_back_white.svg';
 import './calendar.css';
+
+import React from 'react';
+
+import WhiteArrowBack from '../assets/icons/ic_arrow_back_white.svg';
+import WhiteArrowForward from '../assets/icons/ic_arrow_forward_white.svg';
 
 interface CalendarProps {
   selectedDate: Date;

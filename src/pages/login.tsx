@@ -117,7 +117,7 @@ export default function Login() {
                 dataProperty1="btn-filled"
                 dataIconExists={false}
                 dataInput="로그인"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   handleLogin();
                 }}

@@ -90,11 +90,15 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
   moment().format();
   const [currentTime, setCurrentTime] = useState(moment().toISOString());
 
+  console.debug(setCurrentTime);
+
   const startTime = moment(currentTime).subtract(1, 'minutes').toISOString();
   const endTime = moment(currentTime).add(3, 'minutes').toISOString();
   const totalTime = moment(endTime).diff(moment(startTime), 'seconds');
 
   const [progress, setProgress] = useState(0);
+  console.debug(progress);
+
   const [timeLeft, setTimeLeft] = useState(
     moment(endTime).diff(moment(currentTime), 'seconds'),
   );
@@ -109,6 +113,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
     moment(restEnd).diff(moment(currentTime), 'seconds'),
   );
   const [restProgress, setRestProgress] = useState(0);
+  console.debug(restProgress);
 
   const handleTimeUp = () => {
     setStep(4);
@@ -125,7 +130,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
       // Main timer
       const secsLeft = moment(endTime).diff(now, 'seconds');
       setTimeLeft(secsLeft);
-      setProgress((prev) =>
+      setProgress(() =>
         Math.min(
           100,
           ((totalTime - now.diff(moment(startTime), 'seconds')) / totalTime) *
@@ -138,7 +143,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
       if (isPaused) {
         const restSecsLeft = moment(restEnd).diff(now, 'seconds');
         setRestLeft(restSecsLeft);
-        setRestProgress((prev) =>
+        setRestProgress(() =>
           Math.min(
             100,
             ((totalRest - now.diff(moment(restStart), 'seconds')) / totalRest) *
@@ -152,7 +157,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
     return () => {
       clearInterval(interval);
     };
-  }, [isPaused, restStart, restEnd, totalRest]);
+  }, [isPaused, restStart, restEnd, totalRest, endTime, handleTimeUp, totalTime, startTime]);
 
   return (
     <div className="w-[1640px] h-[1079px] bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden">
@@ -311,7 +316,7 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
                     !updatedCards[index].completed;
                   setCards(updatedCards);
                 }}
-                onClick2={(e) => {
+                onClick2={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation();
                   const updatedCards = [...cards];
                   if (updatedCards[index] === undefined) return;

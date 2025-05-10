@@ -1,3 +1,5 @@
+import '../main padding top.css';
+
 import { useState } from 'react';
 
 import BrownAdd from '../../assets/icons/ic_add_brown.svg';
@@ -6,7 +8,6 @@ import GrayClose from '../../assets/icons/ic_close_gray.svg';
 import Flag from '../../assets/icons/ic_flag.svg';
 import OurButton from '../../components/button';
 import { Subtask } from '../../components/subtask';
-import '../main padding top.css';
 
 export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [cardEditorVisible, setCardEditorVisible] = useState(false);
@@ -117,7 +118,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
               onClick={() => {
                 setNewCardVisible(true);
               }}
-              className="w-[472px] h-full px-10 py-[60px] bg-[#170d0d] rounded-[30px] outline outline-1 outline-offset-[-0.50px] outline-[#685e5e] flex flex-col justify-center items-center gap-[30px]"
+              className="w-[472px] h-full px-10 py-[60px] bg-[#170d0d] rounded-[30px] outline-1 outline-offset-[-0.50px] outline-[#685e5e] flex flex-col justify-center items-center gap-[30px]"
             >
               <div className="w-[269px] inline-flex justify-between items-center">
                 <div className="justify-start text-[#685e5e] text-[32px] font-normal font-['Inter']">
@@ -130,7 +131,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
             </button>
           )}
           {newCardVisible && !cardEditorVisible && (
-            <div className="w-[472px] self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
+            <div className="w-[472px] self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
               <div className="self-stretch flex flex-col justify-start items-start gap-[30px]">
                 <input
                   className="w-[380px] justify-start text-[#c7c7c7] text-[40px] font-bold font-['Inter']"
@@ -209,7 +210,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
 
           {/* Card Editor */}
           {cardEditorVisible && (
-            <div className="w-[472px] self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
+            <div className="w-[472px] self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
               <div className="self-stretch flex flex-col justify-start items-start gap-[30px]">
                 <input
                   className="w-[380px] justify-start text-[#c7c7c7] text-[40px] font-bold font-['Inter']"

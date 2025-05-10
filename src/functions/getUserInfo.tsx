@@ -17,7 +17,7 @@ export async function getUserInfo() {
     //     그대로 username과 nickname을 return
     const username = localStorage.getItem('username');
     const nickname = localStorage.getItem('nickname');
-    if (username && username?.length >= 1) {
+    if (username && username.length >= 1) {
       return {
         username: username,
         nickname: nickname,

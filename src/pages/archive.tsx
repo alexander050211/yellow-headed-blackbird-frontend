@@ -1,15 +1,17 @@
+import './main padding top.css';
+
+import { start } from 'node:repl';
+
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../functions/getUserInfo';
-import GrayClose from '../assets/icons/ic_close_gray.svg';
 
+import GrayClose from '../assets/icons/ic_close_gray.svg';
 import OurButton from '../components/button.tsx';
-import { Sidebar } from '../components/sidebar.tsx';
 import { Calendar } from '../components/calendar.tsx';
+import { Sidebar } from '../components/sidebar.tsx';
 import Subtask from '../components/subtask.tsx';
-import './main padding top.css';
 import { getDiariesBetweenTimezones, getDiary, getTask } from '../functions/getDiaries.tsx';
-import { start } from 'node:repl';
+import { getUserInfo } from '../functions/getUserInfo';
 
 
 interface Task {
