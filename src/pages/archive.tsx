@@ -1,13 +1,12 @@
 import { Sidebar } from '../components/sidebar.tsx';
+import { Calendar } from '../components/calendar.tsx';
 
 export const Archive = () => {
   return (
     <div className="w-full h-screen flex flex-row">
       <Sidebar />
-      <div className="flex-1 bg-[#f5f5f5]">
-        <div className="flex justify-center items-center h-full">
-          <h1 className="text-2xl font-bold">Archive Page</h1>
-        </div>
+      <div className="w-full h-screen flex flex-row bg-[#0F0909]">
+        <Calendar/>
       </div>
     </div>
   );
