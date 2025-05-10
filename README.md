@@ -7,7 +7,7 @@
 
 우리 팀의 서비스는 밤을 새우는 청춘들의 열정을 포착하고, 응원하고, 위로합니다.
 
-👉 백엔드 관련 정보는 [Backend 리포지토리 README](https://github.com/alexander050211/yellow-headed-blackbird-backend)를 참고하세요.
+👉 백엔드 관련 정보는 [Backend 리포지토리 README](https://github.com/Zirajs/yellow-headed-blackbird-backend)를 참고하세요.
 
 ## 핵심 기능
 
