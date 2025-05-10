@@ -12,6 +12,8 @@ export default function Login() {
   const [errorMsg, setErrorMsg] = useState('');
   const [waiting, setWaiting] = useState(false);
 
+  console.debug(waiting);
+
   const navigate = useNavigate();
 
   async function fetchLogin() {
