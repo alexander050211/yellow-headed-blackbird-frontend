@@ -7,13 +7,17 @@
 export async function getUserInfo() {
   if (!localStorage.getItem('access')) {
     // 로그인 토큰이 없을 경우 빈 userinfo를 return
-    return null;
+    return {
+      username: '',
+      nickname: '',
+      loggedin: false,
+    };
   } else {
     // (1) 만약 localStorage에 username 정보가 있다면,
     //     그대로 username과 nickname을 return
     const username = localStorage.getItem('username');
     const nickname = localStorage.getItem('nickname');
-    if (username && nickname && username?.length >= 1) {
+    if (username && username?.length >= 1) {
       return {
         username: username,
         nickname: nickname,
@@ -22,8 +26,7 @@ export async function getUserInfo() {
     }
 
     // (2) 만약 localStorage에 username 정보가 없다면,
-    //     API 호출 후 결과를 return
-
+    //     API 호출 후 받은 정보를 localStorage에 저장 후 return
     try {
       const url = '/api/user/me/';
       const resJson = await fetch(url, {
@@ -38,9 +41,18 @@ export async function getUserInfo() {
       localStorage.setItem('username', resJson.username);
       localStorage.setItem('nickname', resJson.nickname);
 
-      return resJson;
+      return {
+        username: resJson.username,
+        nickname: resJson.nickname,
+        loggedin: true,
+      };
     } catch (error) {
-      return null;
+      // 서버 에러의 경우 빈 userinfo를 return
+      return {
+        username: '',
+        nickname: '',
+        loggedin: false,
+      };
     }
   }
 }

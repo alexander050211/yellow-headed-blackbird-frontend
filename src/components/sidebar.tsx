@@ -14,26 +14,11 @@ export const Sidebar = () => {
 
   const [userInfo, setUserInfo] = useState({
     username: '',
-    nickname: '게스트',
+    nickname: '',
+    loggedin: false,
   });
   useEffect(() => {
-    try {
-      const username = localStorage.getItem('username');
-      const nickname = localStorage.getItem('nickname');
-
-      if (username && nickname && username?.length >= 1) {
-        setUserInfo({
-          username: username,
-          nickname: nickname,
-        });
-      } else {
-        getUserInfo().then((resJson) => {
-          if (resJson) setUserInfo(resJson);
-        });
-      }
-    } catch {
-      console.log('asdf');
-    }
+    getUserInfo().then((data) => setUserInfo(data));
   }, []);
 
   return (
@@ -44,7 +29,7 @@ export const Sidebar = () => {
         className="self-stretch px-10 py-5 inline-flex justify-center items-center gap-2.5"
       >
         <div className="justify-start text-white text-xl font-normal font-['Inter']">
-          {userInfo.nickname}님
+          {userInfo.loggedin ? `${userInfo.nickname}님` : '로그인해주세요'}
         </div>
         <div className="w-9 h-9 bg-[#d9d9d9] rounded-full"></div>
       </Link>
@@ -91,19 +76,19 @@ export const Sidebar = () => {
       </Link>
 
       {/* Login & Logout*/}
-      {userInfo.username.length == 0 ? (
-        <Link
-          to={'/login'}
-          className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
-        >
-          <div className="buttonMinor mx-auto">로그인</div>
-        </Link>
-      ) : (
+      {userInfo.loggedin ? (
         <Link
           to={'/logout'}
           className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
         >
           <div className="buttonMinor mx-auto">로그아웃</div>
+        </Link>
+      ) : (
+        <Link
+          to={'/login'}
+          className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+        >
+          <div className="buttonMinor mx-auto">로그인</div>
         </Link>
       )}
     </div>
