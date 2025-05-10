@@ -22,8 +22,8 @@ export const OurButton: React.FC<OurButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`px-10 py-2.5 ${dataProperty1 === 'btn-filled' ? 'bg-[#685e5e]' : 'outline outline-1 outline-offset-[-1px] outline-[#c7c7c7]'}
-      rounded-[40px] inline-flex justify-center items-center gap-2.5 overflow-hidden`}
+      className={`px-10 py-2.5 ${dataProperty1 === 'btn-filled' ? 'bg-[#685e5e]' : 'outline-1 outline-offset-[-1px] outline-[#c7c7c7]'}
+      rounded-[40px] inline-flex justify-center items-center gap-2.5 overflow-hidden cursor-pointer`}
     >
       <div
         className={`justify-start text-white ${dataProperty1 === 'btn-filled' ? 'text-white' : 'text-[#c7c7c7'} text-2xl font-normal font-['Inter']`}

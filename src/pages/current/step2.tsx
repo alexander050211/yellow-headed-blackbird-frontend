@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import BrownAdd from '../../assets/icons/ic_add_brown.svg';
 import GrayCheck from '../../assets/icons/ic_check_gray.svg';
@@ -7,6 +7,7 @@ import Flag from '../../assets/icons/ic_flag.svg';
 import OurButton from '../../components/button';
 import { Subtask } from '../../components/subtask';
 import '../main padding top.css';
+import { startStep3 } from '../../functions/startStep3';
 
 export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [cardEditorVisible, setCardEditorVisible] = useState(false);
@@ -18,6 +19,14 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
 
   const [diaryDueDate, setDiaryDueDate] = useState('');
 
+  // diaryDueDate를 현재 시각으로 초기화
+  useEffect(() => {
+    const now = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+    const formattedDate = now.toISOString().slice(0, 16);
+    setDiaryDueDate(formattedDate);
+    setNewCardDueDate(formattedDate);
+  }, []);
+
   interface Card {
     title: string;
     description: string;
@@ -27,21 +36,15 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
 
   const [cards, setCards] = useState<Card[]>([
     {
-      title: '밤샘을 1시작하기',
-      description: '밤12431234합니다.',
-      dueDate: '03:37',
+      title: '할 일 1',
+      description: '샘플 할 일 1',
+      dueDate: '2025-05-11T02:00',
       completed: false,
     },
     {
-      title: '밤샘을 2시작하기',
-      description: '밤22222222222222합니다.',
-      dueDate: '03:37',
-      completed: false,
-    },
-    {
-      title: '밤샘을 3시작하기',
-      description: '밤샘을 시작33333333정해야 합니다.',
-      dueDate: '03:37',
+      title: '할 일 2',
+      description: '샘플 할 일 2',
+      dueDate: '2025-05-11T05:30',
       completed: false,
     },
   ]);
@@ -53,24 +56,15 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   };
 
   return (
-    <div className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
-      <div className="inline-flex justify-start items-end gap-[100px]">
-        <div className="inline-flex flex-col justify-start items-start gap-[31px]">
-          <div className="w-[660px] inline-flex justify-start items-center gap-3">
+    <div className="w-full h-screen flex flex-row bg-[#0F0909]">
+      <div className="inline-flex p-20 items-center gap-[100px]">
+        <div className="inline-flex flex-col justify-start items-start gap-[31px] text-white">
+          <div className="inline-flex items-end gap-3">
             <div className="flex justify-start items-center gap-[5px]">
-              <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                오늘
-              </div>
+              <h1>오늘의 목표</h1>
             </div>
-            <div className="flex justify-center items-center gap-[5px]">
-              <div className="justify-start text-white text-[32px] font-medium font-['Inter']">
-                의 목표
-              </div>
-            </div>
-            <div className="w-[450px] px-10 py-5 rounded-[20px] flex justify-center items-center gap-2.5">
-              <div className="justify-start text-white text-2xl font-semibold font-['Inter']">
-                UNTIL
-              </div>
+            <div className="justify-start text-white text-xl font-semibold font-['Inter']">
+              {`UNTIL `}
               <input
                 className="justify-start text-white text-2xl font-normal font-['Inter'] underline"
                 placeholder="날짜를 입력하세요.."
@@ -84,7 +78,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
           </div>
 
           {/* Task List */}
-          <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-scroll">
+          <div className="h-96 p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-scroll">
             {cards.map((card, index) => (
               <Subtask
                 key={index}
@@ -110,17 +104,17 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
             ))}
           </div>
         </div>
-        <div className="h-[855px] inline-flex flex-col justify-center items-end gap-8">
+        <div className="w-96 h-96 inline-flex flex-col justify-center gap-8">
           {/* New Task */}
           {!newCardVisible && !cardEditorVisible && (
             <button
               onClick={() => {
                 setNewCardVisible(true);
               }}
-              className="w-[472px] h-full px-10 py-[60px] bg-[#170d0d] rounded-[30px] outline outline-1 outline-offset-[-0.50px] outline-[#685e5e] flex flex-col justify-center items-center gap-[30px]"
+              className="w-96 h-96 px-10 py-[60px] bg-[#170d0d] rounded-[30px] outline outline-1 outline-offset-[-0.50px] outline-[#685e5e] flex flex-col justify-center items-center gap-[30px]"
             >
               <div className="w-[269px] inline-flex justify-between items-center">
-                <div className="justify-start text-[#685e5e] text-[32px] font-normal font-['Inter']">
+                <div className="justify-start text-[#685e5e] text-lg">
                   새 항목 추가하기
                 </div>
                 <div className="w-8 h-8 relative overflow-hidden">
@@ -130,23 +124,23 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
             </button>
           )}
           {newCardVisible && !cardEditorVisible && (
-            <div className="w-[472px] self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
-              <div className="self-stretch flex flex-col justify-start items-start gap-[30px]">
+            <div className="w-96 h-96 self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
+              <div className="self-stretch flex flex-col justify-start items-start gap-4">
                 <input
-                  className="w-[380px] justify-start text-[#c7c7c7] text-[40px] font-bold font-['Inter']"
+                  className=" justify-start text-[#c7c7c7] text-2xl font-bold font-['Inter']"
                   placeholder="제목을 입력하세요.."
                   value={newCardTitle}
                   onChange={(e) => {
                     setNewCardTitle(e.target.value);
                   }}
                 />
-                <div className="self-stretch flex flex-col justify-center items-start gap-5">
-                  <div className="self-stretch inline-flex justify-start items-center gap-5">
-                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">
+                <div className="self-stretch flex flex-col justify-center items-start gap-2">
+                  <div className="self-stretch inline-flex justify-start items-center gap-2">
+                    <div className="justify-start text-white font-semibold font-['Inter']">
                       마감 기한
                     </div>
                     <input
-                      className="w-[277px] flex-1 justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']"
+                      className="flex-1 justify-start text-[#c7c7c7]"
                       placeholder="날짜를 입력하세요.."
                       type="datetime-local"
                       value={newCardDueDate}
@@ -159,7 +153,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
               </div>
               <div className="self-stretch h-px bg-[#685e5e]"></div>
               <textarea
-                className="w-[392px] h-[389px] text-start items-start justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']"
+                className=" text-start items-start justify-start text-[#c7c7c7] font-normal font-['Inter']"
                 placeholder="설명을 추가하세요.."
                 value={newCardDescription}
                 onChange={(e) => {
@@ -209,10 +203,10 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
 
           {/* Card Editor */}
           {cardEditorVisible && (
-            <div className="w-[472px] self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
-              <div className="self-stretch flex flex-col justify-start items-start gap-[30px]">
+            <div className="w-96 h-96 self-stretch px-10 pt-[60px] pb-[30px] bg-[#242121] rounded-[30px] outline outline-1 outline-[#685e5e] inline-flex flex-col gap-[30px]">
+              <div className="self-stretch flex flex-col justify-start items-start gap-4">
                 <input
-                  className="w-[380px] justify-start text-[#c7c7c7] text-[40px] font-bold font-['Inter']"
+                  className="ustify-start text-[#c7c7c7] text-2xl font-bold"
                   placeholder="제목을 입력하세요.."
                   value={newCardTitle}
                   onChange={(e) => {
@@ -221,15 +215,14 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
                 />
                 <div className="self-stretch flex flex-col justify-center items-start gap-5">
                   <div className="self-stretch inline-flex justify-start items-center gap-5">
-                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">
-                      마감 기한
-                    </div>
+                    <div className="justify-start text-white">마감 기한</div>
                     <input
-                      className="w-[277px] flex-1 justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']"
+                      className="flex-1 justify-start text-[#c7c7c7]"
                       placeholder="날짜를 입력하세요.."
                       type="datetime-local"
                       value={newCardDueDate}
                       onChange={(e) => {
+                        console.log(e.target.value);
                         setNewCardDueDate(e.target.value);
                       }}
                     />
@@ -238,7 +231,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
               </div>
               <div className="self-stretch h-px bg-[#685e5e]"></div>
               <textarea
-                className="w-[392px] h-[389px] text-start items-start justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']"
+                className="text-start items-start justify-start text-[#c7c7c7]"
                 placeholder="설명을 추가하세요.."
                 value={newCardDescription}
                 onChange={(e) => {
@@ -297,10 +290,11 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
               localStorage.setItem('step', '3');
               setStep(3);
             }}
-            className="w-[472px] h-[49px] px-10 py-2.5 bg-[#685e5e] rounded-[40px] inline-flex justify-center items-center gap-2.5 overflow-hidden"
+            className="h-14 bg-[#685e5e] rounded-full inline-flex justify-center items-center gap-2.5 overflow-hidden"
           >
             <OurButton
               onClick={() => {
+                startStep3('밤샘', '설명', diaryDueDate, cards);
                 localStorage.setItem('step', '3');
                 setStep(3);
               }}

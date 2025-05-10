@@ -27,7 +27,7 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
   setSelectedDate,
 }) => {
   return !active ? (
-    <div className="w-14 h-24 p-2.5 inline-flex flex-col justify-center items-center gap-2">
+    <div className="w-14 h-16 p-2.5 inline-flex flex-col justify-center items-center gap-2">
       <div className="justify-start text-zinc-500 text-base font-normal font-['Inter']">
         {date.getDate()}
       </div>
@@ -44,7 +44,7 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
     </div>
   ) : selectedDate.getTime() === date.getTime() ? (
     <div
-      className="w-14 h-24 p-2.5 bg-yellow-100 rounded-2xl inline-flex flex-col justify-center items-center gap-2"
+      className="w-14 h-16 p-2.5 bg-yellow-100 rounded-2xl inline-flex flex-col justify-center items-center gap-2"
       onClick={() => {
         setSelectedDate(date);
       }}
@@ -65,7 +65,7 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
     </div>
   ) : (
     <div
-      className="w-14 h-24 p-2.5 bg-stone-800 inline-flex flex-col justify-center items-center gap-2 selection_req"
+      className="w-14 h-16 p-2.5 bg-stone-800 inline-flex flex-col justify-center items-center gap-2 selection_req"
       onClick={() => {
         setSelectedDate(date);
       }}
@@ -130,7 +130,7 @@ export const Calendar = ({
   selectedDate, setSelectedDate, diplayingDate: displayingDate, setDisplayingDate, diaryExists
 }: CalendarProps) => {
   return (
-    <div className="px-5 py-7 bg-stone-800 rounded-[30px] outline outline-1 outline-stone-600 inline-flex flex-col justify-center items-center gap-6 h-fit">
+    <div className="px-5 py-7 bg-stone-800 rounded-[30px] outline-1 outline-stone-600 inline-flex flex-col justify-center items-center gap-6 h-fit">
       <div className="self-stretch inline-flex justify-center items-center gap-12">
         <div
           className="w-6 h-6"

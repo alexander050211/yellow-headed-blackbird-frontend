@@ -10,17 +10,26 @@ export async function getUserInfo() {
     return {
       username: '',
       nickname: '',
+      experience: 0,
       loggedin: false,
+      settings: {
+        alarm: 0,
+        alarm_ui: 0,
+      },
     };
   } else {
     // (1) 만약 localStorage에 username 정보가 있다면,
-    //     그대로 username과 nickname을 return
+    //     그대로 username과 nickname, 그리고 experience를 return
     const username = localStorage.getItem('username');
     const nickname = localStorage.getItem('nickname');
+    const experience = localStorage.getItem('experience');
+    const settings = localStorage.getItem('settings');
     if (username && username?.length >= 1) {
       return {
         username: username,
         nickname: nickname,
+        experience: experience,
+        settings: settings,
         loggedin: true,
       };
     }
@@ -40,10 +49,14 @@ export async function getUserInfo() {
       //console.log(resJson);
       localStorage.setItem('username', resJson.username);
       localStorage.setItem('nickname', resJson.nickname);
+      localStorage.setItem('experience', resJson.experience);
+      localStorage.setItem('settings', resJson.settings);
 
       return {
         username: resJson.username,
         nickname: resJson.nickname,
+        experience: resJson.experience,
+        settings: resJson.settings,
         loggedin: true,
       };
     } catch (error) {
@@ -51,6 +64,11 @@ export async function getUserInfo() {
       return {
         username: '',
         nickname: '',
+        experience: 0,
+        settings: {
+          alarm: 0,
+          alarm_ui: 0,
+        },
         loggedin: false,
       };
     }

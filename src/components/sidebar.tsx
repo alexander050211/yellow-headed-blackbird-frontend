@@ -26,7 +26,7 @@ export const Sidebar = () => {
   }, []);
 
   return (
-    <div className="w-[280px] h-full py-5 bg-[#201818] shadow-[4px_4px_4px_0px_rgba(0,0,0,0.08)] inline-flex flex-col justify-start items-center gap-2.5">
+    <div className="w-[280px] min-h-max py-5 bg-[#201818] inline-flex flex-col justify-start items-center gap-2.5">
       {/* Profile */}
       <Link
         to={'/settings'}
