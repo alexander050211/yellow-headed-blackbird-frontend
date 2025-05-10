@@ -1,12 +1,31 @@
+import { useEffect, useState } from "react";
+
 import { Sidebar } from "../../components/sidebar.tsx";
+import { Credit } from "../../pages/current/credit.tsx";
+import { Step1 } from "../../pages/current/step1.tsx";
+import { Step2 } from "../../pages/current/step2.tsx";
+import { Step3 } from "../../pages/current/step3.tsx";
 
 export const Current = () => {
+  const [step, setStep] = useState<number>();
+
+  useEffect(() => {
+    const storedStep = localStorage.getItem("step");
+    if (storedStep != null) {
+      setStep(parseInt(storedStep));
+    }
+  }, []);
+
   return (
     <div className="w-full h-screen flex flex-row">
       <Sidebar />
+
       <div className="flex-1 bg-[#f5f5f5]">
         <div className="flex justify-center items-center h-full">
-          <h1 className="text-2xl font-bold">Archive Page</h1>
+          {step === 1 && <Step1 setStep={setStep} />}
+          {step === 2 && <Step2 setStep={setStep} />}
+          {step === 3 && <Step3 setStep={setStep} />}
+          {step === 4 && <Credit setStep={setStep} />}
         </div>
       </div>
     </div>
