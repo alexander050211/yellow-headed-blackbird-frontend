@@ -5,8 +5,11 @@ import GrayCalendar from '../assets/icons/ic_calendar_gray.svg';
 import WhiteCalendar from '../assets/icons/ic_calendar_white.svg';
 import GrayStopwatch from '../assets/icons/ic_stopwatch_gray.svg';
 import WhiteStopwatch from '../assets/icons/ic_stopwatch_white.svg';
+import GrayMovie from '../assets/icons/ic_movie_gray.svg';
+import GraySettings from '../assets/icons/ic_settings_gray.svg';
+import WhiteSettings from '../assets/icons/ic_settings_white.svg';
 
-import { fetchUserInfo } from '../functions/fetchUserInfo';
+import { getUserInfo } from '../functions/getUserInfo';
 
 export const Sidebar = () => {
   const location = useLocation();
@@ -14,26 +17,11 @@ export const Sidebar = () => {
 
   const [userInfo, setUserInfo] = useState({
     username: '',
-    nickname: '게스트',
+    nickname: '',
+    loggedin: false,
   });
   useEffect(() => {
-    try {
-      const username = localStorage.getItem('username');
-      const nickname = localStorage.getItem('nickname');
-
-      if (username && nickname && username?.length >= 1) {
-        setUserInfo({
-          username: username,
-          nickname: nickname,
-        });
-      } else {
-        fetchUserInfo().then((resJson) => {
-          if (resJson) setUserInfo(resJson);
-        });
-      }
-    } catch {
-      console.log('asdf');
-    }
+    getUserInfo().then((data) => setUserInfo(data));
   }, []);
 
   return (
@@ -44,7 +32,7 @@ export const Sidebar = () => {
         className="self-stretch px-10 py-5 inline-flex justify-center items-center gap-2.5"
       >
         <div className="justify-start text-white text-xl font-normal font-['Inter']">
-          {userInfo.nickname}님
+          {userInfo.loggedin ? `${userInfo.nickname}님` : '로그인해주세요'}
         </div>
         <div className="w-9 h-9 bg-[#d9d9d9] rounded-full"></div>
       </Link>
@@ -90,20 +78,55 @@ export const Sidebar = () => {
         </div>
       </Link>
 
-      {/* Login & Logout*/}
-      {userInfo.username.length == 0 ? (
-        <Link
-          to={'/login'}
-          className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+      {/* Ending-Credit */}
+      <Link
+        to={'/credit'}
+        className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+      >
+        <div className="w-6 h-6">
+          <img src={GrayMovie} alt="Credit" className="w-6 h-6" />
+        </div>
+        <div
+          className={`justify-start text-[#969696] text-xl font-light font-['Inter']`}
         >
-          <div className="buttonMinor mx-auto">로그인</div>
-        </Link>
-      ) : (
+          엔딩 크레딧
+        </div>
+      </Link>
+
+      {/* Settings (더 좋은 사용자 경험을 위한 중복 기능 구현) */}
+
+      <Link
+        to={'/settings'}
+        className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+      >
+        <div className="w-6 h-6">
+          <img
+            src={currentPath === '/settings' ? WhiteSettings : GraySettings}
+            alt="Settings"
+            className="w-6 h-6"
+          />
+        </div>
+        <div
+          className={`justify-start ${currentPath === '/settings' ? 'text-white' : 'text-[#969696]'} text-xl font-light font-['Inter']`}
+        >
+          설정
+        </div>
+      </Link>
+
+      {/* Login & Logout*/}
+      {userInfo.loggedin ? (
         <Link
           to={'/logout'}
           className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
         >
           <div className="buttonMinor mx-auto">로그아웃</div>
+        </Link>
+      ) : (
+        <Link
+          to={'/login'}
+          className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+        >
+          <div className="buttonMinor mx-auto">로그인</div>
         </Link>
       )}
     </div>

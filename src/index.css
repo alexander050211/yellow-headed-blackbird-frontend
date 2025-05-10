@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 div {
   @apply font-['Inter'];
 }
@@ -9,7 +13,11 @@ button {
 }
 h1 {
   @apply font-['Inter'];
-  @apply text-3xl font-bold;
+  @apply text-3xl font-semibold;
+}
+h2 {
+  @apply font-['Inter'];
+  @apply text-2xl font-semibold;
 }
 
 .textInput {

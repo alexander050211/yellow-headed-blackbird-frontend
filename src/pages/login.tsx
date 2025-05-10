@@ -68,7 +68,13 @@ export default function Login() {
       <Sidebar />
       <div className="px-8 py-12 text-center">
         <h1>로그인</h1>
-        <section className="w-96 text-center px-8 py-8 space-y-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+          className="w-96 text-center px-8 py-8 space-y-4"
+        >
           <div className="flex justify-end items-center space-x-2">
             <label htmlFor="email">이메일</label>
             <input
@@ -95,15 +101,13 @@ export default function Login() {
             />
           </div>
           {errorMsg.length > 0 && <div className="errorMsg">{errorMsg}</div>}
-          <button onClick={handleLogin}>
-            {waiting ? '로그인 중...' : '로그인'}
-          </button>
+          <button type="submit">{waiting ? '로그인 중...' : '로그인'}</button>
           <div>
             <Link to={'/register'} className="buttonMinor">
               계정이 없나요? 회원가입하기
             </Link>
           </div>
-        </section>
+        </form>
       </div>
     </div>
   );

@@ -74,7 +74,13 @@ export default function Register() {
       <Sidebar />
       <div className="px-8 py-12 text-center">
         <h1>회원가입</h1>
-        <section className="w-96 text-center px-4 py-8 space-y-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault;
+            handleRegister();
+          }}
+          className="w-96 text-center px-4 py-8 space-y-4"
+        >
           <div className="flex justify-end items-center space-x-2">
             <label htmlFor="email">이메일</label>
             <input
@@ -125,10 +131,10 @@ export default function Register() {
             />
           </div>
           {errorMsg.length > 0 && <div className="errorMsg">{errorMsg}</div>}
-          <button type="submit" onClick={handleRegister}>
+          <button type="submit">
             {waiting ? '회원가입 중...' : '회원가입'}
           </button>
-        </section>
+        </form>
       </div>
     </div>
   );
