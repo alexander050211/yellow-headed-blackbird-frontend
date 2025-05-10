@@ -9,6 +9,7 @@ interface OurButtonProps {
     alt?: string;
   };
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
 export const OurButton: React.FC<OurButtonProps> = ({
