@@ -44,7 +44,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
             />
           </div>
         </div>
-        <div className="inline-flex flex-col justify-center items-start gap-8">
+        <div className="h-[855px] inline-flex flex-col justify-center items-end gap-8">
           {/* New Task */}
           <button
             onClick={() => {
