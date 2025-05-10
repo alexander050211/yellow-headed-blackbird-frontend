@@ -9,7 +9,7 @@ import Settings from './pages/settings.tsx';
 
 export const App = () => {
   useEffect(() => {
-    localStorage.setItem("step", "1");
+    localStorage.setItem('step', '1');
   }, []);
 
   return (
