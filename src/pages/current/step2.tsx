@@ -140,11 +140,12 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
                 </div>
               </div>
               <div className="self-stretch h-px bg-[#685e5e]"></div>
-              <input
+              <textarea
                 className="w-[392px] h-[389px] text-start items-start justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']"
                 placeholder="설명을 추가하세요.."
                 value={newCardDescription}
                 onChange={(e) => { setNewCardDescription(e.target.value);}}
+                
               />
 
               {/* Buttons */}
