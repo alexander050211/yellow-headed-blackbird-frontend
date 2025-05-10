@@ -1,10 +1,29 @@
 // localStorage에서 access token을 가져와, /api/user/me/에 GET 요청
 // 회원 정보 (username, nickname) 불러와 localStorage에 저장 및 return
 
-export async function fetchUserInfo() {
+// * 이전에 불러온 username 정보가 있다면 api 호출하지 않고
+//   localStorage 값을 그대로 return
+
+export async function getUserInfo() {
   if (!localStorage.getItem('access')) {
+    // 로그인 토큰이 없을 경우 빈 userinfo를 return
     return null;
   } else {
+    // (1) 만약 localStorage에 username 정보가 있다면,
+    //     그대로 username과 nickname을 return
+    const username = localStorage.getItem('username');
+    const nickname = localStorage.getItem('nickname');
+    if (username && nickname && username?.length >= 1) {
+      return {
+        username: username,
+        nickname: nickname,
+        loggedin: true,
+      };
+    }
+
+    // (2) 만약 localStorage에 username 정보가 없다면,
+    //     API 호출 후 결과를 return
+
     try {
       const url = '/api/user/me/';
       const resJson = await fetch(url, {

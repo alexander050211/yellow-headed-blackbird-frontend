@@ -8,6 +8,7 @@ import Login from './pages/login.tsx';
 import Logout from './pages/logout.tsx';
 import Register from './pages/register.tsx';
 import Settings from './pages/settings.tsx';
+import Credit from './pages/credit.tsx';
 
 export const App = () => {
   return (
@@ -16,8 +17,9 @@ export const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/current" element={<Current />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/current" element={<Current />} />
+      <Route path="/credit" element={<Credit />} />
     </Routes>
   );
 };
