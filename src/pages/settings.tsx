@@ -86,7 +86,7 @@ export const Settings = () => {
                         onClick={() => {
                           setAlarmInterval(0);
                         }}
-                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 0 ? 'bg-[#685e5e] rounded-[20px] outline outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
+                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 0 ? 'bg-[#685e5e] rounded-[20px] outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
                       >
                         <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
                           알림 X
@@ -96,7 +96,7 @@ export const Settings = () => {
                         onClick={() => {
                           setAlarmInterval(30);
                         }}
-                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 30 ? 'bg-[#685e5e] rounded-[20px] outline outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
+                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 30 ? 'bg-[#685e5e] rounded-[20px] outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
                       >
                         <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
                           30분 마다
@@ -106,7 +106,7 @@ export const Settings = () => {
                         onClick={() => {
                           setAlarmInterval(60);
                         }}
-                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 60 ? 'bg-[#685e5e] rounded-[20px] outline outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
+                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 60 ? 'bg-[#685e5e] rounded-[20px] outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
                       >
                         <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
                           1시간 마다
