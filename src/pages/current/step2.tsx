@@ -6,7 +6,7 @@ import GrayClose from '../../assets/icons/ic_close_gray.svg';
 import Flag from '../../assets/icons/ic_flag.svg';
 import OurButton from '../../components/button';
 import { Subtask } from '../../components/subtask';
-import '../main padding top.css'
+import '../main padding top.css';
 
 export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [cardEditorVisible, setCardEditorVisible] = useState(false);
