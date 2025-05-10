@@ -20,7 +20,9 @@ export const Sidebar = () => {
     loggedin: false,
   });
   useEffect(() => {
-    getUserInfo().then((data) => { setUserInfo(data); });
+    getUserInfo().then((data) => {
+      setUserInfo(data);
+    });
   }, []);
 
   return (

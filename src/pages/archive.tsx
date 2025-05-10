@@ -14,21 +14,25 @@ export const Archive = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getUserInfo().then((data) => { setUserInfo(data); });
+    getUserInfo().then((data) => {
+      setUserInfo(data);
+    });
   }, []);
 
   return (
     <div className="w-full h-screen flex flex-row">
       <Sidebar />
-      {!(userInfo.loggedin) && (
+      {!userInfo.loggedin && (
         <div className="bg-[#0f0909] w-[1640px] h-[1079px] px-32 py-28 inline-flex flex-col justify-center items-center overflow-hidden">
           <div className="flex flex-col justify-center items-center gap-14">
-            <div className="text-center justify-start text-white text-[32px] font-normal font-['Inter']">서비스를 이용하시려면 로그인해주세요</div>
+            <div className="text-center justify-start text-white text-[32px] font-normal font-['Inter']">
+              서비스를 이용하시려면 로그인해주세요
+            </div>
             <div className="inline-flex justify-start items-start gap-14 flex-wrap content-start">
               <OurButton
                 dataProperty1="btn-stroke"
                 dataIconExists={false}
-                dataInput='회원가입하기'
+                dataInput="회원가입하기"
                 onClick={() => {
                   navigate('/register');
                 }}
@@ -37,7 +41,7 @@ export const Archive = () => {
               <OurButton
                 dataProperty1="btn-filled"
                 dataIconExists={false}
-                dataInput='로그인하러 가기'
+                dataInput="로그인하러 가기"
                 onClick={() => {
                   navigate('/login');
                 }}
