@@ -32,3 +32,33 @@ h2 {
 .errorMsg {
   @apply bg-red-400 text-white font-bold p-4 text-sm;
 }
+
+.fade-in {
+  opacity: 1;
+  animation: fadeIn ease-in-out 1s;
+}
+
+.fade-out {
+  opacity: 0;
+  animation: fadeOut ease-in-out 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

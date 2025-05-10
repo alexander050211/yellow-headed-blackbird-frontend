@@ -60,25 +60,27 @@ export const Credit = () => {
       setIsLoading(false);
     }
 
-    getUserInfo().then((data) => {
-      setUserInfo(data);
-    });
-    getDiaryData();
+    if (diaryData.id == 0) {
+      getUserInfo().then((data) => {
+        setUserInfo(data);
+      });
+      getDiaryData();
+    }
   }, []);
 
   const EndingCreditPage = () => (
     <div className="md:w-1/2 mx-auto space-y-24">
-      <section className="space-y-4">
+      <section className="space-y-4 fade-in">
         <h1 className="text-blue-200">Ending Credit</h1>
         <h2>- {dateText}의 밤샘 -</h2>
       </section>
 
-      <section className="space-y-4">
+      <section className="space-y-4 fade-in">
         <h2>오늘의 밤샘 목표: {diaryData.title}</h2>
         <div>{diaryData.description}</div>
       </section>
 
-      <section className="space-y-4">
+      <section className="space-y-4 fade-in">
         <h2 className="text-blue-200">오늘밤 이룬 일들</h2>
         <div className="grid grid-cols-1 space-y-4">
           {diaryData.task_details?.map((data: any, key: number) => (
@@ -87,7 +89,7 @@ export const Credit = () => {
         </div>
       </section>
 
-      <section className="space-y-4">
+      <section className="space-y-4 fade-in">
         <h2 className="text-blue-200">카페인 섭취</h2>
         <div>총 {totalCaff}mg의 카페인을 섭취했어요.</div>
         <div className="grid grid-cols-1 space-y-4">
@@ -104,7 +106,7 @@ export const Credit = () => {
         </div>
       </section>
 
-      <section className="space-y-4">
+      <section className="space-y-4 fade-in">
         <h2 className="text-blue-200">타임라인</h2>
         <Timeline
           created_time={diaryData.created_time}
@@ -114,7 +116,7 @@ export const Credit = () => {
         />
       </section>
 
-      <section className="space-y-16">
+      <section className="space-y-16 fade-in">
         <div className="space-y-2">
           <h2>{userInfo.nickname}님, 오늘도 수고했어요.</h2>
           <div>The darkest hour is just before dawn.</div>
