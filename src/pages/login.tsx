@@ -3,6 +3,7 @@ import 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import OurButton from '../components/button.tsx';
 import { Sidebar } from '../components/sidebar.tsx';
 
 export default function Login() {
@@ -64,52 +65,67 @@ export default function Login() {
   }
 
   return (
-    <div className="w-full h-screen flex flex-row">
+    <div className="w-full h-screen flex flex-row bg-[#0f0909]">
       <Sidebar />
-      <div className="px-8 py-12 text-center">
-        <h1>로그인</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleLogin();
-          }}
-          className="w-96 text-center px-8 py-8 space-y-4"
-        >
-          <div className="flex justify-end items-center space-x-2">
-            <label htmlFor="email">이메일</label>
+      <div className="w-[1640px] h-screen px-32 py-28 inline-flex flex-col justify-center items-center overflow-hidden">
+        <div className="flex flex-col justify-center items-center gap-10">
+          <div className="justify-start text-white text-5xl font-semibold font-['Inter']">
+            로그인
+          </div>
+          <div className="p-5 flex flex-col justify-center items-center gap-5">
             <input
-              className="textInput"
               type="email"
-              id="email"
-              placeholder="example@example.com"
+              className="w-[400px] px-5 py-2.5 bg-[#242121] rounded-[20px] text-white text-xl font-normal font-['Istok_Web']"
+              placeholder="아이디"
+              value={email}
               onChange={(e) => {
-                setEmail(e.currentTarget.value);
+                setEmail(e.target.value);
               }}
             />
-          </div>
-
-          <div className="flex justify-end items-center space-x-2">
-            <label htmlFor="password">비밀번호</label>
             <input
-              className="textInput"
               type="password"
-              id="password"
-              placeholder="Password"
+              className="w-[400px] px-5 py-2.5 bg-[#242121] rounded-[20px] text-white text-xl font-normal font-['Istok_Web']"
+              placeholder="패스워드"
+              value={password}
               onChange={(e) => {
-                setPassword(e.currentTarget.value);
+                setPassword(e.target.value);
               }}
             />
+
+            <div className="w-[400px] h-[29px] text-right items-end justify-end">
+              <Link
+                to="/register"
+                className="text-right ml-auto text-white text-xl font-normal font-['Istok_Web']"
+              >
+                회원가입 하기
+              </Link>
+            </div>
+
+            {errorMsg !== '' && (
+              <div className="text-red-500 text-sm font-normal font-['Istok_Web']">
+                {errorMsg}
+              </div>
+            )}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                handleLogin();
+              }}
+              className="w-[400px] h-[49px] px-10 py-2.5 bg-[#685e5e] rounded-[40px] inline-flex justify-center items-center gap-2.5 overflow-hidden"
+            >
+              <OurButton
+                dataProperty1="btn-filled"
+                dataIconExists={false}
+                dataInput="로그인"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLogin();
+                }}
+                waiting={waiting}
+              />
+            </button>
           </div>
-          {errorMsg.length > 0 && <div className="errorMsg">{errorMsg}</div>}
-          <button type="submit" className="button">
-            {waiting ? '로그인 중...' : '로그인'}
-          </button>
-          <div>
-            <Link to={'/register'} className="buttonMinor">
-              계정이 없나요? 회원가입하기
-            </Link>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   );
