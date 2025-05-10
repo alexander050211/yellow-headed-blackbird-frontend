@@ -13,14 +13,24 @@ export const Sidebar = () => {
   const currentPath = location.pathname;
 
   const [userInfo, setUserInfo] = useState({
-    username: null,
+    username: '',
     nickname: '게스트',
   });
   useEffect(() => {
     try {
-      fetchUserInfo().then((resJson) => {
-        if (resJson) setUserInfo(resJson);
-      });
+      const username = localStorage.getItem('username');
+      const nickname = localStorage.getItem('nickname');
+
+      if (username && nickname && username?.length >= 1) {
+        setUserInfo({
+          username: username,
+          nickname: nickname,
+        });
+      } else {
+        fetchUserInfo().then((resJson) => {
+          if (resJson) setUserInfo(resJson);
+        });
+      }
     } catch {
       console.log('asdf');
     }
@@ -81,7 +91,7 @@ export const Sidebar = () => {
       </Link>
 
       {/* Login & Logout*/}
-      {!userInfo.username ? (
+      {userInfo.username.length == 0 ? (
         <Link
           to={'/login'}
           className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
