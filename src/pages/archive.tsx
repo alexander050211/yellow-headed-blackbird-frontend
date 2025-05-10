@@ -86,7 +86,7 @@ export const Archive = () => {
     <div className="w-full h-screen flex flex-row">
       <Sidebar />
       {!userInfo.loggedin && (
-        <div className="bg-[#0f0909] w-[1640px] h-[1079px] px-32 py-28 inline-flex flex-col justify-center items-center overflow-hidden">
+        <div className="bg-[#0f0909] px-32 py-28  inline-flex flex-col justify-center items-center overflow-hidden">
           <div className="flex flex-col justify-center items-center gap-14">
             <div className="text-center justify-start text-white text-[32px] font-normal font-['Inter']">
               서비스를 이용하시려면 로그인해주세요
@@ -115,46 +115,31 @@ export const Archive = () => {
       )}
       {userInfo.loggedin && (
         <div className="w-full h-screen flex flex-row bg-[#0F0909]">
-          <div
-            className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
-            <div className="inline-flex justify-start items-center gap-[100px]">
-
+          <div className="h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
+            <div className="inline-flex justify-start items-center gap-10 py-16">
               <Calendar
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
                 diplayingDate={displayingDate}
                 setDisplayingDate={setDisplayingDate}
               />
-              <div className="inline-flex flex-col justify-start items-start gap-[31px]">
-                <div className="w-[720px] inline-flex justify-start items-center gap-3">
+              <div className="inline-flex flex-col justify-start items-start gap-4">
+                <div className="inline-flex justify-start items-center gap-3">
                   <div className="flex justify-start items-center gap-[5px]">
-                    <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                      {selectedDate.getFullYear()}
-                    </div>
-                    <div className="justify-start text-white text-3xl font-medium font-['Inter']">
-                      년
-                    </div>
-                  </div>
-
-                  <div className="flex justify-start items-center gap-[5px]">
-                    <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                      {(selectedDate.getMonth() + 1).toString().padStart(2, "0")}
-                    </div>
-                    <div className="justify-start text-white text-3xl font-medium font-['Inter']">
-                      월
-                    </div>
-                  </div>
-                  <div className="flex justify-center items-center gap-[5px]">
-                    <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                      {selectedDate.getDate()}
-                    </div>
-                    <div className="justify-start text-white text-3xl font-medium font-['Inter']">
-                      일의 목표
+                    <div className="justify-start text-white text-xl font-bold font-['Inter']">
+                      {`${selectedDate.getFullYear()}년 ${(
+                        selectedDate.getMonth() + 1
+                      )
+                        .toString()
+                        .padStart(
+                          2,
+                          '0',
+                        )}월 ${selectedDate.getDate()}일의 목표`}
                     </div>
                   </div>
                 </div>
                 {/* Task List */}
-                <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-scroll">
+                <div className="p-2.5 h-96 flex flex-col justify-start items-center gap-4 overflow-scroll">
                   {cards.map((card, index) => (
                     <Subtask
                       key={index}
@@ -171,7 +156,9 @@ export const Archive = () => {
             </div>
           </div>
         </div>
-      )};
+      )}
+      ;
     </div>
-  )};
+  );
+};
 export default Archive;

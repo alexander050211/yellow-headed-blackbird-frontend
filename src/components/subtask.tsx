@@ -30,7 +30,7 @@ export const Subtask: React.FC<SubtaskProps> = ({
   return (
     <button
       onClick={onClick1}
-      className="w-[640px] px-10 py-5 bg-[#242121] rounded-[30px] outline outline-1 outline-[#584d4d] inline-flex justify-start items-center"
+      className="w-[640px] px-4 py-2 bg-[#242121] rounded-xl outline-1 outline-[#584d4d] inline-flex justify-start items-center"
     >
       <div className="w-[560px] flex justify-start items-center gap-5">
         <div className="inline-flex flex-col justify-start items-start gap-2.5">
@@ -47,11 +47,11 @@ export const Subtask: React.FC<SubtaskProps> = ({
                 />
               </button>
             )}
-            <div className="w-[442px] flex-1 inline-flex flex-col justify-start items-start gap-2.5">
-              <div className="w-[442px] h-[34px] text-start text-white text-[28px] font-normal font-['Inter'] truncate">
+            <div className="flex-1 inline-flex flex-col justify-start items-start">
+              <div className="text-start text-white text-lg font-normal font-['Inter'] truncate">
                 {title}
               </div>
-              <div className="w-[442px] h-[23px] text-start text-[#c7c7c7] text-base font-normal font-['Istok_Web'] truncate">
+              <div className="text-start text-[#c7c7c7] font-['Istok_Web'] truncate">
                 {content}
               </div>
             </div>
