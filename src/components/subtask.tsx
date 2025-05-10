@@ -30,7 +30,7 @@ export const Subtask: React.FC<SubtaskProps> = ({
   return (
     <button
       onClick={onClick1}
-      className="w-[640px] px-10 py-5 bg-[#242121] rounded-[30px] outline outline-1 outline-[#584d4d] inline-flex justify-start items-center"
+      className="w-[640px] px-10 py-5 bg-[#242121] rounded-[30px] outline-1 outline-[#584d4d] inline-flex justify-start items-center"
     >
       <div className="w-[560px] flex justify-start items-center gap-5">
         <div className="inline-flex flex-col justify-start items-start gap-2.5">
