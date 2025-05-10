@@ -5,6 +5,9 @@ import GrayCalendar from '../assets/icons/ic_calendar_gray.svg';
 import WhiteCalendar from '../assets/icons/ic_calendar_white.svg';
 import GrayStopwatch from '../assets/icons/ic_stopwatch_gray.svg';
 import WhiteStopwatch from '../assets/icons/ic_stopwatch_white.svg';
+import GrayMovie from '../assets/icons/ic_movie_gray.svg';
+import GraySettings from '../assets/icons/ic_settings_gray.svg';
+import WhiteSettings from '../assets/icons/ic_settings_white.svg';
 
 import { getUserInfo } from '../functions/getUserInfo';
 
@@ -72,6 +75,41 @@ export const Sidebar = () => {
           className={`justify-start ${currentPath === '/' ? 'text-white' : 'text-[#969696]'} text-xl font-light font-['Inter']`}
         >
           아카이브
+        </div>
+      </Link>
+
+      {/* Ending-Credit */}
+      <Link
+        to={'/credit'}
+        className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+      >
+        <div className="w-6 h-6">
+          <img src={GrayMovie} alt="Credit" className="w-6 h-6" />
+        </div>
+        <div
+          className={`justify-start text-[#969696] text-xl font-light font-['Inter']`}
+        >
+          엔딩 크레딧
+        </div>
+      </Link>
+
+      {/* Settings (더 좋은 사용자 경험을 위한 중복 기능 구현) */}
+
+      <Link
+        to={'/settings'}
+        className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+      >
+        <div className="w-6 h-6">
+          <img
+            src={currentPath === '/settings' ? WhiteSettings : GraySettings}
+            alt="Settings"
+            className="w-6 h-6"
+          />
+        </div>
+        <div
+          className={`justify-start ${currentPath === '/settings' ? 'text-white' : 'text-[#969696]'} text-xl font-light font-['Inter']`}
+        >
+          설정
         </div>
       </Link>
 

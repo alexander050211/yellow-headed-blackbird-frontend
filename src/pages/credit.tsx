@@ -33,7 +33,7 @@ export default function Credit() {
       </section>
 
       <section className="space-y-4 mt-8">
-        <h2>- 타임라인인 -</h2>
+        <h2>- 타임라인 -</h2>
       </section>
 
       <section className="space-y-4 mt-8">
