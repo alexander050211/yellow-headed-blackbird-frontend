@@ -1,30 +1,35 @@
 import React from 'react';
 import WhiteArrowForward from '../assets/icons/ic_arrow_forward_white.svg';
 import WhiteArrowBack from '../assets/icons/ic_arrow_back_white.svg';
+import './calendar.css';
 
 
 interface CalendarProps {
   selectedDate: Date;
   setSelectedDate: (selectedDate: Date) => void;
+  diplayingDate: Date;
+  setDisplayingDate: (displayingDate: Date) => void;
 }
 
 interface CalendarTileProps {
-  selected: boolean;
+  selectedDate: Date;
   hasRecord: boolean;
   active: boolean;
-  day: number;
+  date: Date;
+  setSelectedDate: (selectedDate: Date) => void;
 }
 
 const CalendarTile: React.FC<CalendarTileProps> = ({
-  selected,
+  selectedDate,
   hasRecord,
   active,
-  day,
+  date,
+  setSelectedDate
 }) => {
   return !active ? (
     <div className="w-14 h-24 p-2.5 inline-flex flex-col justify-center items-center gap-2">
       <div className="justify-start text-zinc-500 text-base font-normal font-['Inter']">
-        {day}
+        {date.getDate()}
       </div>
       {hasRecord ? (
         <div
@@ -37,10 +42,10 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
         <div data-횟수="0회" className="w-5 h-[5px]" />
       )}
     </div>
-  ) : selected ? (
-    <div className="w-14 h-24 p-2.5 bg-yellow-100 rounded-2xl inline-flex flex-col justify-center items-center gap-2">
+  ) : selectedDate.getTime() === date.getTime() ? (
+    <div className="w-14 h-24 p-2.5 bg-yellow-100 rounded-2xl inline-flex flex-col justify-center items-center gap-2" onClick={()=>{setSelectedDate(date)}}>
       <div className="justify-start text-neutral-900 text-base font-medium font-['Inter']">
-        {day}
+        {date.getDate()}
       </div>
       {hasRecord ? (
         <div
@@ -54,9 +59,9 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
       )}
     </div>
   ) : (
-    <div className="w-14 h-24 p-2.5 bg-stone-800 inline-flex flex-col justify-center items-center gap-2">
+    <div className="w-14 h-24 p-2.5 bg-stone-800 inline-flex flex-col justify-center items-center gap-2 selection_req" onClick={()=>{setSelectedDate(date)}}>
       <div className="justify-start text-white text-base font-medium font-['Inter']">
-        {day}
+        {date.getDate()}
       </div>
       {hasRecord ? (
         <div
@@ -80,12 +85,15 @@ function getCalendarDates(month: number, year: number) {
   for (let i = 0; i < 6; i++) {
     const row: CalendarTileProps[] = [];
     for (let j=0; j<7; j++) {
+      const tmpDate = new Date(year, month - 1, 1);
+      tmpDate.setDate(currentDate.getDate());
       row.push(
         {
-          selected: false,
+          selectedDate: new Date(),
           hasRecord: false,
           active: currentDate.getMonth()+1 === month,
-          day: currentDate.getDate()
+          date: tmpDate,
+          setSelectedDate: (selectedDate: Date) => {}
         }
       );
       currentDate.setDate(currentDate.getDate() + 1);
@@ -110,18 +118,42 @@ const GetDayHeader = ({ day, color }: { day: string; color: string }) => (
   </div>
 );
 
-export const Calendar = () => {
+export const Calendar = ({
+  selectedDate, setSelectedDate, diplayingDate: displayingDate, setDisplayingDate
+}: CalendarProps) => {
   return (
     <div className="px-5 py-7 bg-stone-800 rounded-[30px] outline outline-1 outline-stone-600 inline-flex flex-col justify-center items-center gap-6 h-fit">
       <div className="self-stretch inline-flex justify-center items-center gap-12">
-        <div className="w-6 h-6">
+        <div
+          className="w-6 h-6"
+          onClick={() => {
+            setDisplayingDate(
+              new Date(
+                displayingDate.getFullYear(),
+                displayingDate.getMonth() - 1,
+                1,
+              ),
+            );
+          }}
+        >
           <img src={WhiteArrowBack} alt="Stopwatch" className="w-6 h-6" />
         </div>
 
         <div className="justify-start text-white text-2xl font-bold font-['Inter']">
-          2025.05
+          {displayingDate.getFullYear()}.{(displayingDate.getMonth()+1).toString().padStart(2, "0")}
         </div>
-        <div className="w-6 h-6">
+        <div
+          className="w-6 h-6"
+          onClick={() => {
+            setDisplayingDate(
+              new Date(
+                displayingDate.getFullYear(),
+                displayingDate.getMonth() + 1,
+                1,
+              ),
+            );
+          }}
+        >
           <img src={WhiteArrowForward} alt="Stopwatch" className="w-6 h-6" />
         </div>
       </div>
@@ -155,16 +187,20 @@ export const Calendar = () => {
           </tr>
         </thead>
         <tbody>
-          {getCalendarDates(5, 2025).map((row, idx) => {
+          {getCalendarDates(
+            displayingDate.getMonth() + 1,
+            displayingDate.getFullYear(),
+          ).map((row, idx) => {
             return (
               <tr key={idx}>
                 {row.map((it, idx2) => (
                   <td key={idx2}>
                     <CalendarTile
                       hasRecord={it.hasRecord}
-                      selected={it.selected}
+                      selectedDate={selectedDate}
                       active={it.active}
-                      day={it.day}
+                      date={it.date}
+                      setSelectedDate={setSelectedDate}
                     />
                   </td>
                 ))}
