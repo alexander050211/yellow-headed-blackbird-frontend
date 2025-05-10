@@ -1,4 +1,4 @@
-export const Step3 = () => {
+export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
   return <div>Step3</div>;
 };
 
