@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 import { Sidebar } from '../../components/sidebar.tsx';
-import { Credit } from '../credit.tsx';
 import { Step1 } from '../current/step1.tsx';
 import { Step2 } from '../current/step2.tsx';
 import { Step3 } from '../current/step3.tsx';

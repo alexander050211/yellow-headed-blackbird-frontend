@@ -81,6 +81,7 @@ export const Settings = () => {
                     현재{' '}
                     {userInfo.experience != null
                       ? Object.entries(tierDb).find(([key, value]) => {
+                          console.debug(key);
                           return (value ?? 0) > userInfo.experience;
                         })?.[0] || '최고 티어'
                       : '새싹'}{' '}
