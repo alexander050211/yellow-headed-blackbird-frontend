@@ -11,7 +11,7 @@ export const Settings = () => {
     nickname: '',
     loggedin: false,
   });
-  
+
   useEffect(() => {
     getUserInfo().then((data) => {
       setUserInfo(data);
@@ -29,8 +29,12 @@ export const Settings = () => {
           {/* Name */}
           <div className="h-[58px] flex flex-col justify-between items-start">
             <div className="inline-flex justify-center items-center gap-2.5">
-              <div className="justify-start text-white text-5xl font-semibold font-['Inter']">{userInfo.nickname}</div>
-              <div className="justify-start text-white text-[32px] font-medium font-['Inter']">님의 정보</div>
+              <div className="justify-start text-white text-5xl font-semibold font-['Inter']">
+                {userInfo.nickname}
+              </div>
+              <div className="justify-start text-white text-[32px] font-medium font-['Inter']">
+                님의 정보
+              </div>
             </div>
           </div>
           <div className="self-stretch flex flex-col justify-start items-start gap-[100px]">
@@ -39,7 +43,9 @@ export const Settings = () => {
               <img className="w-40 h-40" src={Plant} />
               <div className="w-[724px] h-[200px] inline-flex flex-col justify-center items-start gap-10">
                 <div className="inline-flex justify-start items-start gap-5">
-                  <div className="justify-start text-white text-[32px] font-semibold font-['Inter']">현재 새싹 단계</div>
+                  <div className="justify-start text-white text-[32px] font-semibold font-['Inter']">
+                    현재 새싹 단계
+                  </div>
                   <div className="w-10 h-10 relative bg-[#584d4d] rounded-[32px] overflow-hidden">
                     <div className="w-6 h-6 left-[8px] top-[8.50px] absolute overflow-hidden">
                       <img className="w-6 h-6" src={GrayPencil} />
@@ -50,11 +56,13 @@ export const Settings = () => {
                   <div className="w-[415px] h-5 bg-[#242121] rounded-[20px]">
                     <div className="w-[308px] h-5 bg-[#685e5e] rounded-[20px]"></div>
                   </div>
-                  <div className="justify-start text-[#c7c7c7] text-2xl font-semibold font-['Inter']">78%</div>
+                  <div className="justify-start text-[#c7c7c7] text-2xl font-semibold font-['Inter']">
+                    78%
+                  </div>
                 </div>
               </div>
             </div>
-            
+
             {/* Settings */}
             <div className="self-stretch flex flex-col justify-start items-start gap-20">
               {/* Divider */}
@@ -63,12 +71,16 @@ export const Settings = () => {
               {/* Settings */}
               <div className="self-stretch flex flex-col justify-start items-start gap-[52px]">
                 <div className="inline-flex justify-start items-center gap-[352px]">
-                  <div className="justify-start text-white text-4xl font-semibold font-['Inter']">설정</div>
+                  <div className="justify-start text-white text-4xl font-semibold font-['Inter']">
+                    설정
+                  </div>
                 </div>
                 <div className="flex flex-col justify-start items-start gap-9">
                   {/* Alarm Interval */}
                   <div className="w-[782px] inline-flex justify-between items-center">
-                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">알림 주기</div>
+                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">
+                      알림 주기
+                    </div>
                     <div className="w-[466px] bg-[#242121] rounded-[20px] flex justify-start items-center overflow-hidden">
                       <div
                         onClick={() => {
@@ -76,7 +88,9 @@ export const Settings = () => {
                         }}
                         className={`flex-1 px-5 py-2.5 ${alarmInterval === 0 ? 'bg-[#685e5e] rounded-[20px] outline outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
                       >
-                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">알림 X</div>
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
+                          알림 X
+                        </div>
                       </div>
                       <div
                         onClick={() => {
@@ -84,7 +98,9 @@ export const Settings = () => {
                         }}
                         className={`flex-1 px-5 py-2.5 ${alarmInterval === 30 ? 'bg-[#685e5e] rounded-[20px] outline outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
                       >
-                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">30분 마다</div>
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
+                          30분 마다
+                        </div>
                       </div>
                       <div
                         onClick={() => {
@@ -92,14 +108,18 @@ export const Settings = () => {
                         }}
                         className={`flex-1 px-5 py-2.5 ${alarmInterval === 60 ? 'bg-[#685e5e] rounded-[20px] outline outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
                       >
-                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">1시간 마다</div>
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
+                          1시간 마다
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Show Sunrise */}
                   <div className="w-[782px] inline-flex justify-between items-center">
-                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">일출 UI 표시 여부</div>
+                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">
+                      일출 UI 표시 여부
+                    </div>
                     <div className="w-[466px] h-[49px] bg-[#242121] rounded-[20px] flex justify-start items-center overflow-hidden">
                       <div
                         onClick={() => {
@@ -107,7 +127,9 @@ export const Settings = () => {
                         }}
                         className={`flex-1 px-5 py-2.5 ${showSunrise ? 'bg-[#685e5e] rounded-[20px]' : ''} flex justify-center items-center gap-2.5`}
                       >
-                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">표시</div>
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
+                          표시
+                        </div>
                       </div>
                       <div
                         onClick={() => {
@@ -115,7 +137,9 @@ export const Settings = () => {
                         }}
                         className={`flex-1 px-5 py-2.5 ${!showSunrise ? 'bg-[#685e5e] rounded-[20px]' : ''} flex justify-center items-center gap-2.5`}
                       >
-                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">표시 X</div>
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
+                          표시 X
+                        </div>
                       </div>
                     </div>
                   </div>
