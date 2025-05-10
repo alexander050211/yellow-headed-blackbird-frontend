@@ -6,6 +6,7 @@ import GrayClose from '../../assets/icons/ic_close_gray.svg';
 import Flag from '../../assets/icons/ic_flag.svg';
 import OurButton from '../../components/button';
 import { Subtask } from '../../components/subtask';
+import '../main padding top.css';
 
 export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [cardEditorVisible, setCardEditorVisible] = useState(false);
@@ -52,7 +53,7 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
   };
 
   return (
-    <div className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden">
+    <div className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
       <div className="inline-flex justify-start items-end gap-[100px]">
         <div className="inline-flex flex-col justify-start items-start gap-[31px]">
           <div className="w-[660px] inline-flex justify-start items-center gap-3">

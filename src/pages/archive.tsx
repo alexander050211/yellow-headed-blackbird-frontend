@@ -3,6 +3,7 @@ import { Calendar } from '../components/calendar.tsx';
 import { useState } from 'react';
 import Card from './current/step2.tsx';
 import Subtask from '../components/subtask.tsx';
+import './main padding top.css';
 
 export const Archive = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -70,7 +71,7 @@ export const Archive = () => {
       <Sidebar />
       <div className="w-full h-screen flex flex-row bg-[#0F0909]">
         <div
-          className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden">
+          className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
           <div className="inline-flex justify-start items-center gap-[100px]">
 
             <Calendar
