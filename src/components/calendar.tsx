@@ -3,7 +3,6 @@ import WhiteArrowForward from '../assets/icons/ic_arrow_forward_white.svg';
 import WhiteArrowBack from '../assets/icons/ic_arrow_back_white.svg';
 import './calendar.css';
 
-
 interface CalendarProps {
   selectedDate: Date;
   setSelectedDate: (selectedDate: Date) => void;
@@ -25,7 +24,7 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
   hasRecord,
   active,
   date,
-  setSelectedDate
+  setSelectedDate,
 }) => {
   return !active ? (
     <div className="w-14 h-24 p-2.5 inline-flex flex-col justify-center items-center gap-2">
@@ -44,7 +43,12 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
       )}
     </div>
   ) : selectedDate.getTime() === date.getTime() ? (
-    <div className="w-14 h-24 p-2.5 bg-yellow-100 rounded-2xl inline-flex flex-col justify-center items-center gap-2" onClick={()=>{setSelectedDate(date)}}>
+    <div
+      className="w-14 h-24 p-2.5 bg-yellow-100 rounded-2xl inline-flex flex-col justify-center items-center gap-2"
+      onClick={() => {
+        setSelectedDate(date);
+      }}
+    >
       <div className="justify-start text-neutral-900 text-base font-medium font-['Inter']">
         {date.getDate()}
       </div>
@@ -60,7 +64,12 @@ const CalendarTile: React.FC<CalendarTileProps> = ({
       )}
     </div>
   ) : (
-    <div className="w-14 h-24 p-2.5 bg-stone-800 inline-flex flex-col justify-center items-center gap-2 selection_req" onClick={()=>{setSelectedDate(date)}}>
+    <div
+      className="w-14 h-24 p-2.5 bg-stone-800 inline-flex flex-col justify-center items-center gap-2 selection_req"
+      onClick={() => {
+        setSelectedDate(date);
+      }}
+    >
       <div className="justify-start text-white text-base font-medium font-['Inter']">
         {date.getDate()}
       </div>
@@ -85,7 +94,7 @@ function getCalendarDates(month: number, year: number, recordExists: number[]) {
   currentDate.setDate(currentDate.getDate() - dateDelta);
   for (let i = 0; i < 6; i++) {
     const row: CalendarTileProps[] = [];
-    for (let j=0; j<7; j++) {
+    for (let j = 0; j < 7; j++) {
       const tmpDate = new Date(year, month - 1, 1);
       tmpDate.setDate(currentDate.getDate());
       row.push(
@@ -110,9 +119,7 @@ const GetDayHeader = ({ day, color }: { day: string; color: string }) => (
     className="w-14 h-[19px] p-2.5 bg-stone-800 inline-flex flex-col justify-center items-center gap-2"
   >
     <div
-      className={
-        "justify-start text-base font-normal font-['Inter']" + color
-      }
+      className={"justify-start text-base font-normal font-['Inter']" + color}
     >
       {day}
     </div>
@@ -141,7 +148,8 @@ export const Calendar = ({
         </div>
 
         <div className="justify-start text-white text-2xl font-bold font-['Inter']">
-          {displayingDate.getFullYear()}.{(displayingDate.getMonth()+1).toString().padStart(2, "0")}
+          {displayingDate.getFullYear()}.
+          {(displayingDate.getMonth() + 1).toString().padStart(2, '0')}
         </div>
         <div
           className="w-6 h-6"

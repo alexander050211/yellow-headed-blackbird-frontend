@@ -1,12 +1,152 @@
+import { useEffect, useState } from 'react';
+
+import GrayPencil from '../assets/icons/ic_pencil_gray.svg';
+import Plant from '../assets/images/img_plant.png';
 import Sidebar from '../components/sidebar';
+import { getUserInfo } from '../functions/getUserInfo';
 
 export const Settings = () => {
+  const [userInfo, setUserInfo] = useState({
+    username: '',
+    nickname: '',
+    loggedin: false,
+  });
+
+  useEffect(() => {
+    getUserInfo().then((data) => {
+      setUserInfo(data);
+    });
+  }, []);
+
+  const [alarmInterval, setAlarmInterval] = useState(0);
+  const [showSunrise, setShowSunrise] = useState(true);
+
   return (
     <div className="w-full h-screen flex flex-row">
       <Sidebar />
-      <div className="flex-1 bg-[#f5f5f5]">
-        <div className="flex justify-center items-center h-full">
-          <h1 className="text-2xl font-bold">Archive Page</h1>
+      <div className="w-[1640px] h-screen relative bg-[#0f0808] overflow-hidden">
+        <div className="w-[1640px] h-[1079px] pl-32 pr-[280px] py-28 top-[1px] absolute inline-flex flex-col justify-start items-start gap-[120px] overflow-hidden">
+          {/* Name */}
+          <div className="h-[58px] flex flex-col justify-between items-start">
+            <div className="inline-flex justify-center items-center gap-2.5">
+              <div className="justify-start text-white text-5xl font-semibold font-['Inter']">
+                {userInfo.nickname}
+              </div>
+              <div className="justify-start text-white text-[32px] font-medium font-['Inter']">
+                님의 정보
+              </div>
+            </div>
+          </div>
+          <div className="self-stretch flex flex-col justify-start items-start gap-[100px]">
+            {/* Profile */}
+            <div className="w-[964px] h-[200px] inline-flex justify-start items-center gap-20">
+              <img className="w-40 h-40" src={Plant} />
+              <div className="w-[724px] h-[200px] inline-flex flex-col justify-center items-start gap-10">
+                <div className="inline-flex justify-start items-start gap-5">
+                  <div className="justify-start text-white text-[32px] font-semibold font-['Inter']">
+                    현재 새싹 단계
+                  </div>
+                  <div className="w-10 h-10 relative bg-[#584d4d] rounded-[32px] overflow-hidden">
+                    <div className="w-6 h-6 left-[8px] top-[8.50px] absolute overflow-hidden">
+                      <img className="w-6 h-6" src={GrayPencil} />
+                    </div>
+                  </div>
+                </div>
+                <div className="w-[510px] h-5 inline-flex justify-start items-center gap-12">
+                  <div className="w-[415px] h-5 bg-[#242121] rounded-[20px]">
+                    <div className="w-[] h-5 bg-[#685e5e] rounded-[20px]"></div>
+                  </div>
+                  <div className="justify-start text-[#c7c7c7] text-2xl font-semibold font-['Inter']">
+                    78%
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Settings */}
+            <div className="self-stretch flex flex-col justify-start items-start gap-20">
+              {/* Divider */}
+              <div className="self-stretch h-px bg-[#685e5e]"></div>
+
+              {/* Settings */}
+              <div className="self-stretch flex flex-col justify-start items-start gap-[52px]">
+                <div className="inline-flex justify-start items-center gap-[352px]">
+                  <div className="justify-start text-white text-4xl font-semibold font-['Inter']">
+                    설정
+                  </div>
+                </div>
+                <div className="flex flex-col justify-start items-start gap-9">
+                  {/* Alarm Interval */}
+                  <div className="w-[782px] inline-flex justify-between items-center">
+                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">
+                      알림 주기
+                    </div>
+                    <div className="w-[466px] bg-[#242121] rounded-[20px] flex justify-start items-center overflow-hidden">
+                      <div
+                        onClick={() => {
+                          setAlarmInterval(0);
+                        }}
+                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 0 ? 'bg-[#685e5e] rounded-[20px] outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
+                      >
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
+                          알림 X
+                        </div>
+                      </div>
+                      <div
+                        onClick={() => {
+                          setAlarmInterval(30);
+                        }}
+                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 30 ? 'bg-[#685e5e] rounded-[20px] outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
+                      >
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
+                          30분 마다
+                        </div>
+                      </div>
+                      <div
+                        onClick={() => {
+                          setAlarmInterval(60);
+                        }}
+                        className={`flex-1 px-5 py-2.5 ${alarmInterval === 60 ? 'bg-[#685e5e] rounded-[20px] outline-1 outline-offset-[-1px] outline-black' : ''} flex justify-center items-center gap-2.5`}
+                      >
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Istok_Web']">
+                          1시간 마다
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Show Sunrise */}
+                  <div className="w-[782px] inline-flex justify-between items-center">
+                    <div className="justify-start text-white text-2xl font-semibold font-['Inter']">
+                      일출 UI 표시 여부
+                    </div>
+                    <div className="w-[466px] h-[49px] bg-[#242121] rounded-[20px] flex justify-start items-center overflow-hidden">
+                      <div
+                        onClick={() => {
+                          setShowSunrise(true);
+                        }}
+                        className={`flex-1 px-5 py-2.5 ${showSunrise ? 'bg-[#685e5e] rounded-[20px]' : ''} flex justify-center items-center gap-2.5`}
+                      >
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
+                          표시
+                        </div>
+                      </div>
+                      <div
+                        onClick={() => {
+                          setShowSunrise(false);
+                        }}
+                        className={`flex-1 px-5 py-2.5 ${!showSunrise ? 'bg-[#685e5e] rounded-[20px]' : ''} flex justify-center items-center gap-2.5`}
+                      >
+                        <div className="justify-start text-[#c7c7c7] text-2xl font-normal font-['Inter']">
+                          표시 X
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
