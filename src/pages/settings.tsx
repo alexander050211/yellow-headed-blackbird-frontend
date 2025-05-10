@@ -64,7 +64,7 @@ export const Settings = () => {
     <div className="w-full min-h-screen flex flex-row overflow-hidden">
       <Sidebar />
       <div className="w-full max-h-screen relative bg-[#0f0808] text-white">
-        <div className="pl-32 p-28 absolute inline-flex flex-col justify-start items-start gap-10">
+        <div className="p-20 absolute inline-flex flex-col justify-start items-start gap-10">
           {/* Name */}
           <div className="flex flex-col justify-between items-start">
             <div className="inline-flex justify-center items-center gap-2.5">
