@@ -121,7 +121,6 @@ export default function Login() {
                   e.preventDefault();
                   handleLogin();
                 }}
-                waiting={waiting}
               />
             </button>
           </div>
