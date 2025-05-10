@@ -28,9 +28,39 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
           {/* Task List */}
           <div className="h-[766px] p-2.5 flex flex-col justify-start items-center gap-[30px] overflow-hidden">
             <Subtask
+              dataCheckboxExists={false}
+              dataBoxChecked="unchecked"
+              archived={false}
+              title="밤샘을 시작하기"
+              content="밤샘을 시작하기 위해서는 목표를 설정해야 합니다."
+              dueDate="03:37"
+              onClick1={() => {
+                setNewCardVisible(false);
+                localStorage.setItem("step", "3");
+                setStep(3);
+              }}
+              onClick2={(e) => { e.stopPropagation(); }}
+              onClick3={(e) => { e.stopPropagation(); }}
+            />
+            <Subtask
               dataCheckboxExists={true}
               dataBoxChecked="unchecked"
               archived={false}
+              title="밤샘을 시작하기"
+              content="밤샘을 시작하기 위해서는 목표를 설정해야 합니다."
+              dueDate="03:37"
+              onClick1={() => {
+                setNewCardVisible(false);
+                localStorage.setItem("step", "3");
+                setStep(3);
+              }}
+              onClick2={(e) => { e.stopPropagation(); }}
+              onClick3={(e) => { e.stopPropagation(); }}
+            />
+            <Subtask
+              dataCheckboxExists={false}
+              dataBoxChecked="unchecked"
+              archived={true}
               title="밤샘을 시작하기"
               content="밤샘을 시작하기 위해서는 목표를 설정해야 합니다."
               dueDate="03:37"
