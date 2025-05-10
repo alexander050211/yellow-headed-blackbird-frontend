@@ -5,6 +5,7 @@ import { Timeline } from '../components/credTimeline';
 import { getDiaries, getDiary } from '../functions/getDiaries';
 import { getUserInfo } from '../functions/getUserInfo';
 import { Link } from 'react-router-dom';
+import { getNatureEvents } from '../functions/getNatureEvent';
 
 export const Credit = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,6 +28,7 @@ export const Credit = () => {
   });
   const [dateText, setDateText] = useState('');
   const [totalCaff, setTotalCaff] = useState(0);
+  const [natureEvent, setNatureEvent] = useState('');
 
   useEffect(() => {
     interface IDiary {
@@ -38,7 +40,8 @@ export const Credit = () => {
           (a: IDiary, b: IDiary): number => b.id - a.id,
         );
         // 가장 최근의 Diary 데이터 요청
-        const diaryId = diaries[0].id;
+        //const diaryId = diaries[0].id;
+        const diaryId = 4;
         const diary = await getDiary(diaryId);
         setDiaryData(diary);
 
@@ -55,7 +58,14 @@ export const Credit = () => {
           `${date.slice(0, 4)}년 ${date.slice(5, 7)}월 ${date.slice(8, 10)}일`,
         );
 
-        console.log(diary);
+        console.log(diary.created_time);
+        const natureEvent = await getNatureEvents(
+          diary.created_time,
+          diary.ended_time,
+        );
+        console.log(natureEvent);
+
+        //console.log(diary);
       } catch {}
       setIsLoading(false);
     }
