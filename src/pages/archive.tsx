@@ -115,10 +115,8 @@ export const Archive = () => {
       )}
       {userInfo.loggedin && (
         <div className="w-full h-screen flex flex-row bg-[#0F0909]">
-          <div
-            className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
+          <div className="w-[1640px] h-full bg-[#0f0909] px-32 py-28 inline-flex flex-col justify-between items-start overflow-hidden main">
             <div className="inline-flex justify-start items-center gap-[100px]">
-
               <Calendar
                 selectedDate={selectedDate}
                 setSelectedDate={setSelectedDate}
@@ -138,7 +136,9 @@ export const Archive = () => {
 
                   <div className="flex justify-start items-center gap-[5px]">
                     <div className="justify-start text-white text-5xl font-bold font-['Inter']">
-                      {(selectedDate.getMonth() + 1).toString().padStart(2, "0")}
+                      {(selectedDate.getMonth() + 1)
+                        .toString()
+                        .padStart(2, '0')}
                     </div>
                     <div className="justify-start text-white text-3xl font-medium font-['Inter']">
                       월
@@ -171,7 +171,9 @@ export const Archive = () => {
             </div>
           </div>
         </div>
-      )};
+      )}
+      ;
     </div>
-  )};
+  );
+};
 export default Archive;
