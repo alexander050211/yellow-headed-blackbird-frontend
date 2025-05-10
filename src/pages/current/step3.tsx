@@ -104,6 +104,14 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
   const [restLeft, setRestLeft] = useState(moment(restEnd).diff(moment(currentTime), 'seconds'));
   const [restProgress, setRestProgress] = useState(0);
 
+  const handleTimeUp = () => {
+    setStep(4);
+  };
+
+  const handleRestTimeUp = () => {
+    setIsPaused(false);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       const now = moment();
