@@ -38,7 +38,7 @@ export const Subtask: React.FC<SubtaskProps> = ({
             {dataCheckboxExists && (
               <button
                 onClick={onClick2}
-                className="w-6 h-6 relative overflow-hidden"
+                className="w-6 h-6 relative"
               >
                 <img
                   src={dataBoxChecked === 'checked' ? Checkbox1 : Checkbox0}
@@ -47,11 +47,11 @@ export const Subtask: React.FC<SubtaskProps> = ({
                 />
               </button>
             )}
-            <div className="w-[442px] flex-1 inline-flex flex-col justify-start items-start gap-2.5">
-              <div className="w-[442px] h-[34px] text-start text-white text-[28px] font-normal font-['Inter'] truncate">
+            <div className="w-[360px] flex-1 inline-flex flex-col justify-start items-start gap-2.5">
+              <div className={`${dataBoxChecked === 'checked' ? 'line-through' : ''} w-[360px] h-[34px] text-start text-white text-[28px] font-normal font-['Inter'] truncate`}>
                 {title}
               </div>
-              <div className="w-[442px] h-[23px] text-start text-[#c7c7c7] text-base font-normal font-['Istok_Web'] truncate">
+              <div className={`${dataBoxChecked === 'checked' ? 'line-through' : ''} w-[360px] h-[23px] text-start text-[#c7c7c7] text-base font-normal font-['Istok_Web'] truncate`}>
                 {content}
               </div>
             </div>

@@ -304,14 +304,23 @@ export const Step3 = ({ setStep }: { setStep: (step: number) => void }) => {
                 title={card.title}
                 content={card.description}
                 dueDate={card.dueDate}
-                onClick2={() => {
+                onClick1={() => {
                   const updatedCards = [...cards];
                   if (updatedCards[index] === undefined) return;
                   updatedCards[index].completed =
                     !updatedCards[index].completed;
                   setCards(updatedCards);
                 }}
-                onClick3={() => {
+                onClick2={(e) => {
+                  e.stopPropagation();
+                  const updatedCards = [...cards];
+                  if (updatedCards[index] === undefined) return;
+                  updatedCards[index].completed =
+                    !updatedCards[index].completed;
+                  setCards(updatedCards);
+                }}
+                onClick3={(e) => {
+                  e.stopPropagation();
                   handleDeleteCard(index);
                 }}
               />
