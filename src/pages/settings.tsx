@@ -54,7 +54,7 @@ export const Settings = () => {
                 </div>
                 <div className="w-[510px] h-5 inline-flex justify-start items-center gap-12">
                   <div className="w-[415px] h-5 bg-[#242121] rounded-[20px]">
-                    <div className="w-[308px] h-5 bg-[#685e5e] rounded-[20px]"></div>
+                    <div className="w-[] h-5 bg-[#685e5e] rounded-[20px]"></div>
                   </div>
                   <div className="justify-start text-[#c7c7c7] text-2xl font-semibold font-['Inter']">
                     78%
