@@ -96,7 +96,7 @@ export default function Login() {
               <Link
                 to="/register"
                 className="text-right ml-auto text-white text-xl font-normal font-['Istok_Web']"
-                >
+              >
                 회원가입 하기
               </Link>
             </div>
@@ -108,9 +108,9 @@ export default function Login() {
             )}
             <button
               onClick={(e) => {
-                  e.preventDefault();
-                  handleLogin();
-                }}
+                e.preventDefault();
+                handleLogin();
+              }}
               className="w-[400px] h-[49px] px-10 py-2.5 bg-[#685e5e] rounded-[40px] inline-flex justify-center items-center gap-2.5 overflow-hidden"
             >
               <OurButton
