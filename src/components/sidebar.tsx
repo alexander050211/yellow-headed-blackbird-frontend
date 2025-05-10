@@ -1,13 +1,40 @@
 import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import GrayCalendar from '../assets/icons/ic_calendar_gray.svg';
 import WhiteCalendar from '../assets/icons/ic_calendar_white.svg';
 import GrayStopwatch from '../assets/icons/ic_stopwatch_gray.svg';
 import WhiteStopwatch from '../assets/icons/ic_stopwatch_white.svg';
 
+import { fetchUserInfo } from '../functions/fetchUserInfo';
+
 export const Sidebar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+
+  const [userInfo, setUserInfo] = useState({
+    username: '',
+    nickname: '게스트',
+  });
+  useEffect(() => {
+    try {
+      const username = localStorage.getItem('username');
+      const nickname = localStorage.getItem('nickname');
+
+      if (username && nickname && username?.length >= 1) {
+        setUserInfo({
+          username: username,
+          nickname: nickname,
+        });
+      } else {
+        fetchUserInfo().then((resJson) => {
+          if (resJson) setUserInfo(resJson);
+        });
+      }
+    } catch {
+      console.log('asdf');
+    }
+  }, []);
 
   return (
     <div className="w-[280px] h-full py-5 bg-[#201818] shadow-[4px_4px_4px_0px_rgba(0,0,0,0.08)] inline-flex flex-col justify-start items-center gap-2.5">
@@ -17,7 +44,7 @@ export const Sidebar = () => {
         className="self-stretch px-10 py-5 inline-flex justify-center items-center gap-2.5"
       >
         <div className="justify-start text-white text-xl font-normal font-['Inter']">
-          홍길동님
+          {userInfo.nickname}님
         </div>
         <div className="w-9 h-9 bg-[#d9d9d9] rounded-full"></div>
       </Link>
@@ -62,6 +89,23 @@ export const Sidebar = () => {
           아카이브
         </div>
       </Link>
+
+      {/* Login & Logout*/}
+      {userInfo.username.length == 0 ? (
+        <Link
+          to={'/login'}
+          className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+        >
+          <div className="buttonMinor mx-auto">로그인</div>
+        </Link>
+      ) : (
+        <Link
+          to={'/logout'}
+          className="self-stretch px-10 py-2.5 inline-flex justify-start items-center gap-2.5"
+        >
+          <div className="buttonMinor mx-auto">로그아웃</div>
+        </Link>
+      )}
     </div>
   );
 };
