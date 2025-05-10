@@ -25,9 +25,9 @@ export function TaskItem({ taskData }: ITask) {
   const s = abs % 60;
   const offsetStr =
     (isPos ? '+' : '-') +
-    (h > 0 ? `${Math.floor(abs / 3600)}시간` : '') +
-    (m > 0 ? `${Math.floor((abs / 60) % 60)}분` : '') +
-    `${abs % 60}초`;
+    (h > 0 ? `${h}시간` : '') +
+    (m > 0 ? `${h}분` : '') +
+    `${s}초`;
 
   return (
     <div className="p-6 border-2 rounded-lg text-left space-y-2">

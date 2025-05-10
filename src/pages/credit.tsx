@@ -6,7 +6,6 @@ import { TaskItem } from '../components/credComponents';
 
 export default function Credit() {
   const [isLoading, setIsLoading] = useState(true);
-  const [diaryId, setDiaryId] = useState(0);
 
   const [diaryData, setDiaryData] = useState({
     id: 0,
