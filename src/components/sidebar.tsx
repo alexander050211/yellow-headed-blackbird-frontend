@@ -1,14 +1,13 @@
-import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 import GrayCalendar from '../assets/icons/ic_calendar_gray.svg';
 import WhiteCalendar from '../assets/icons/ic_calendar_white.svg';
-import GrayStopwatch from '../assets/icons/ic_stopwatch_gray.svg';
-import WhiteStopwatch from '../assets/icons/ic_stopwatch_white.svg';
 import GrayMovie from '../assets/icons/ic_movie_gray.svg';
 import GraySettings from '../assets/icons/ic_settings_gray.svg';
 import WhiteSettings from '../assets/icons/ic_settings_white.svg';
-
+import GrayStopwatch from '../assets/icons/ic_stopwatch_gray.svg';
+import WhiteStopwatch from '../assets/icons/ic_stopwatch_white.svg';
 import { getUserInfo } from '../functions/getUserInfo';
 
 export const Sidebar = () => {
@@ -21,7 +20,7 @@ export const Sidebar = () => {
     loggedin: false,
   });
   useEffect(() => {
-    getUserInfo().then((data) => setUserInfo(data));
+    getUserInfo().then((data) => { setUserInfo(data); });
   }, []);
 
   return (
