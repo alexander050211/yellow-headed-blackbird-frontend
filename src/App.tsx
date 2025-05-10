@@ -4,9 +4,9 @@ import { Route, Routes } from 'react-router-dom';
 
 import Archive from './pages/archive.tsx';
 import Current from './pages/current/index.tsx';
-import Settings from './pages/settings.tsx';
 import Login from './pages/login.tsx';
 import Register from './pages/register.tsx';
+import Settings from './pages/settings.tsx';
 
 export const App = () => {
   return (
