@@ -61,19 +61,27 @@ export const Step2 = ({ setStep }: { setStep: (step: number) => void }) => {
           </button>
 
           {/* Start Button */}
-          <OurButton
+          <button
             onClick={() => {
-              localStorage.setItem('step', '3');
+              localStorage.setItem("step", "3");
               setStep(3);
             }}
-            dataIconExists={true}
-            dataProperty1="btn-filled"
-            dataInput="밤샘 시작하기"
-            img={{
-              src: Flag,
-              alt: 'Icon',
-            }}
-          />
+            className="w-[472px] h-[49px] px-10 py-2.5 bg-[#685e5e] rounded-[40px] inline-flex justify-center items-center gap-2.5 overflow-hidden"
+          >
+            <OurButton
+              onClick={() => {
+                localStorage.setItem('step', '3');
+                setStep(3);
+              }}
+              dataIconExists={true}
+              dataProperty1="btn-filled"
+              dataInput="밤샘 시작하기"
+              img={{
+                src: Flag,
+                alt: 'Icon',
+              }}
+            />
+          </button>
         </div>
       </div>
     </div>
