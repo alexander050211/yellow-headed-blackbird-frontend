@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { Sidebar } from '../../components/sidebar.tsx';
-import { Credit } from '../../pages/current/credit.tsx';
-import { Step1 } from '../../pages/current/step1.tsx';
-import { Step2 } from '../../pages/current/step2.tsx';
-import { Step3 } from '../../pages/current/step3.tsx';
+import { Credit } from '../credit.tsx';
+import { Step1 } from '../current/step1.tsx';
+import { Step2 } from '../current/step2.tsx';
+import { Step3 } from '../current/step3.tsx';
 
 export const Current = () => {
   const [step, setStep] = useState<number>();
